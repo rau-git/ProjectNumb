@@ -35,10 +35,6 @@ public class Player : MonoBehaviour
     {
         MovePlayer();
         Jump();
-    }
-
-    private void FixedUpdate()
-    {
         BetterGravity();
     }
 
@@ -48,11 +44,6 @@ public class Player : MonoBehaviour
         Vector3 playerMovementDirection = new Vector3(playerMovementInput.x, 0, playerMovementInput.y);
 
         _playerRigidbody.MovePosition(transform.position + playerMovementDirection * _playerMoveSpeed * Time.deltaTime);
-    }
-
-    public float MovementSpeed()
-    {
-        return _playerRigidbody.velocity.magnitude;
     }
 
     private void Jump()
