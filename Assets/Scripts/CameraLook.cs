@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class CameraLook : MonoBehaviour
 {
@@ -9,7 +13,7 @@ public class CameraLook : MonoBehaviour
     private float _mouseSensitivity;
     
     [SerializeField] 
-    private Transform _playerBody;
+    private Rigidbody _playerBody;
     
     private float _xRotation = 0;
     private float _yRotation = 0;
@@ -18,7 +22,6 @@ public class CameraLook : MonoBehaviour
 
     private void Awake()
     {
-        _playerBody = GetComponentInParent<Transform>();
         _playerIngameControls = new PlayerIngameControls();
         _playerIngameControls.Enable();
     }
@@ -41,11 +44,12 @@ public class CameraLook : MonoBehaviour
         var looking = _playerIngameControls.PlayerControls.Look.ReadValue<Vector2>();
         var mouseX = looking.x * _mouseSensitivity * Time.deltaTime;
         var mouseY = looking.y * _mouseSensitivity * Time.deltaTime;
-        
+
         _xRotation -= mouseY;
         _yRotation += mouseX;
         _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
-        
-        transform.localRotation = Quaternion.Euler(_xRotation, _yRotation, 0f);
+
+        transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
+        _playerBody.transform.rotation = Quaternion.Euler(0f, _yRotation, 0f);
     }
 }
