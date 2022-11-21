@@ -276,9 +276,9 @@ MonoBehaviour:
   _playerRigidbody: {fileID: 8024236921825670386}
   _playerCamera: {fileID: 7227864528694581626}
   _groundCheckObject: {fileID: 7268813056713515719}
-  _movementForce: 500
-  _maxMovementSpeed: 15
-  _movementAcceleration: 0
+  _movementForce: 100
+  _maxMovementSpeed: 10
+  _movementAcceleration: 1
   _currentPlayerSpeed: 0
   _jumpPower: 10
   _mouseSensitivityMultiplier: 1
@@ -307,7 +307,7 @@ MonoBehaviour:
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  _clientAuthoritative: 1
+  _clientAuthoritative: 0
   _sendToOwner: 1
   _interval: 1
   _synchronizePosition: 1

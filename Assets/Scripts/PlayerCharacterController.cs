@@ -44,8 +44,6 @@ public class PlayerCharacterController : MonoBehaviour
 
     private bool _doJump;
 
-    [SerializeField] private AnimationCurve _deaccelerateCurve;
-
     private void Awake()
     {
         _playerControls = new PlayerIngameControls();
@@ -71,6 +69,7 @@ public class PlayerCharacterController : MonoBehaviour
         MovePlayer();
         Jump();
         Deaccelerate();
+        BetterGravity();
     }
 
     private void GetInput()
@@ -118,10 +117,9 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (!_doJump || CheckForGround()) return;
+        if (!_doJump || !CheckForGround()) return;
         
         _playerRigidbody.AddForce(transform.up * _jumpPower, ForceMode.VelocityChange);
-        _doJump = false;
     }
 
     private void StopMoving()
@@ -134,8 +132,6 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void BetterGravity()
     {
-        if (!CheckForGround()) return;
-        
         _playerRigidbody.AddForce(transform.up * Physics.gravity.y, ForceMode.Acceleration);
     }
 
