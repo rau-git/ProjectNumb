@@ -986,18 +986,17 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5933109015736981997}
   _networkObjectCache: {fileID: 5933109015736981997}
-  AnimBlendSpeed: 8.9
-  CameraRoot: {fileID: 1899151811920829099}
+  _cameraRoot: {fileID: 1899151811920829099}
   _camera: {fileID: 1899151812734690632}
-  UpperLimit: -90
-  BottomLimit: 90
-  MouseSensitivity: 10
-  JumpFactor: 300
-  Dis2Ground: 0.9
-  GroundCheck:
+  _groundCheck:
     serializedVersion: 2
     m_Bits: 1
-  AirResistance: 0.8
+  _animationBlendSpeed: 8.9
+  _upperCameraLimit: -40
+  _bottomCameraLimit: 70
+  _distanceToGround: 0.8
+  _airResistance: 0.8
+  _mouseSensitivity: 1
 --- !u!114 &5933109015736981997
 MonoBehaviour:
   m_ObjectHideFlags: 0

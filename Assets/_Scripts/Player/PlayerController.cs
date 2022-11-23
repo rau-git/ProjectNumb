@@ -4,44 +4,70 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public sealed class PlayerController : NetworkBehaviour
     {
-        [SerializeField] private float AnimBlendSpeed = 8.9f;
-        [SerializeField] private Transform CameraRoot;
-        [SerializeField] private Transform _camera;
-        [SerializeField] private float UpperLimit = -40f;
-        [SerializeField] private float BottomLimit = 70f;
-        [SerializeField] private float MouseSensitivity = 21.9f;
-        [SerializeField, Range(10, 500)] private float JumpFactor = 260f;
-        [SerializeField] private float Dis2Ground = 0.8f;
-        [SerializeField] private LayerMask GroundCheck;
-        [SerializeField] private float AirResistance = 0.8f;
+        #region Assignables
+        [Header("Assign")]
+        [SerializeField] 
+        private Transform _cameraRoot;
+        
+        [SerializeField] 
+        private Transform _camera;
+        
         private Rigidbody _playerRigidbody;
+        
         private Animator _animator;
-        private bool _grounded = false;
+        
+        [SerializeField] 
+        private LayerMask _groundCheck;
+        
+        private PlayerIngameControls _playerControls;
+        
+        #endregion
+        
+        #region DesignOptions
+        [Header("Designer Options")]
+        [SerializeField] 
+        private float _animationBlendSpeed = 8.9f;
+        
+        [SerializeField] 
+        private float _upperCameraLimit = -40f;
+        
+        [SerializeField] 
+        private float _bottomCameraLimit = 70f;
+        
+        [SerializeField] 
+        private float _distanceToGround = 0.8f;
+        
+        [SerializeField] 
+        private float _airResistance = 0.8f;
+        
+        private const float _walkSpeed = 2f;
+        
+        private const float _runSpeed = 6f;
+        
+        #endregion
+        
+        #region PlayerOptions
+        [Header("Player Options")]
+        [SerializeField] 
+        private float _mouseSensitivity = 21.9f;
+        
+        #endregion
+        
+        private int _xVelHash, _yVelHash ,_jumpHash, _groundHash, _fallingHash, _zVelHash, _crouchHash;
+
+        private bool _grounded;
         private bool _hasAnimator;
-        private int _xVelHash;
-        private int _yVelHash;
-        private int _jumpHash;
-        private int _groundHash;
-        private int _fallingHash;
-        private int _zVelHash;
-        private int _crouchHash;
         private float _xRotation;
         private float _yRotation;
-
-        private PlayerIngameControls _playerControls;
-
-        private const float _walkSpeed = 2f;
-        private const float _runSpeed = 6f;
         private Vector2 _currentVelocity;
-        
-
 
         private void Start() 
         {
-            _hasAnimator = TryGetComponent<Animator>(out _animator);
+            _hasAnimator = TryGetComponent(out _animator);
             _playerRigidbody = GetComponent<Rigidbody>();
 
             _xVelHash = Animator.StringToHash("X_Velocity");
@@ -123,8 +149,8 @@ public sealed class PlayerController : NetworkBehaviour
             if(_grounded)
             {
                 
-                _currentVelocity.x = Mathf.Lerp(_currentVelocity.x, _playerControls.PlayerControls.Movement.ReadValue<Vector2>().x * targetSpeed, AnimBlendSpeed * Time.deltaTime);
-                _currentVelocity.y =  Mathf.Lerp(_currentVelocity.y, _playerControls.PlayerControls.Movement.ReadValue<Vector2>().y * targetSpeed, AnimBlendSpeed * Time.deltaTime);
+                _currentVelocity.x = Mathf.Lerp(_currentVelocity.x, _playerControls.PlayerControls.Movement.ReadValue<Vector2>().x * targetSpeed, _animationBlendSpeed * Time.deltaTime);
+                _currentVelocity.y =  Mathf.Lerp(_currentVelocity.y, _playerControls.PlayerControls.Movement.ReadValue<Vector2>().y * targetSpeed, _animationBlendSpeed * Time.deltaTime);
 
                 var velocity = _playerRigidbody.velocity;
                 var xVelDifference = _currentVelocity.x - velocity.x;
@@ -134,7 +160,7 @@ public sealed class PlayerController : NetworkBehaviour
             }
             else
             {
-                _playerRigidbody.AddForce(transform.TransformVector(new Vector3(_currentVelocity.x * AirResistance,0,_currentVelocity.y * AirResistance)), ForceMode.VelocityChange);
+                _playerRigidbody.AddForce(transform.TransformVector(new Vector3(_currentVelocity.x * _airResistance,0,_currentVelocity.y * _airResistance)), ForceMode.VelocityChange);
             }
 
 
@@ -148,13 +174,13 @@ public sealed class PlayerController : NetworkBehaviour
 
             var looking = _playerControls.PlayerControls.Look.ReadValue<Vector2>();
 
-            var mouseX = looking.x * MouseSensitivity * Time.deltaTime;
-            var mouseY = looking.y * MouseSensitivity * Time.deltaTime;
+            var mouseX = looking.x * _mouseSensitivity * Time.deltaTime;
+            var mouseY = looking.y * _mouseSensitivity * Time.deltaTime;
             
-            _camera.position = CameraRoot.position;
+            _camera.position = _cameraRoot.position;
 
             _xRotation -= mouseY;
-            _xRotation = Mathf.Clamp(_xRotation, UpperLimit, BottomLimit);
+            _xRotation = Mathf.Clamp(_xRotation, _upperCameraLimit, _bottomCameraLimit);
             
             _yRotation += mouseX;
 
@@ -184,16 +210,13 @@ public sealed class PlayerController : NetworkBehaviour
         private void SampleGround()
         {
             if(!_hasAnimator) return;
-            
-            RaycastHit hitInfo;
-            if(Physics.Raycast(_playerRigidbody.worldCenterOfMass, Vector3.down, out hitInfo, Dis2Ground + 0.1f, GroundCheck))
+
+            if(Physics.Raycast(_playerRigidbody.worldCenterOfMass, Vector3.down, out _, _distanceToGround + 0.1f, _groundCheck))
             {
-                //Grounded
                 _grounded = true;
                 SetAnimationGrounding();
                 return;
             }
-            //Falling
             _grounded = false;
             _animator.SetFloat(_zVelHash, _playerRigidbody.velocity.y);
             SetAnimationGrounding();
