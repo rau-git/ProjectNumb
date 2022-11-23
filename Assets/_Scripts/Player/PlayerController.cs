@@ -2,15 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityTutorial.Manager;
+using FishNet.Object;
+using Unity.VisualScripting;
 
-namespace UnityTutorial.PlayerControl
-{
-    public class PlayerController : MonoBehaviour
+public sealed class PlayerController : NetworkBehaviour
     {
         [SerializeField] private float AnimBlendSpeed = 8.9f;
         [SerializeField] private Transform CameraRoot;
-        [SerializeField] private Transform Camera;
+        [SerializeField] private Transform _camera;
         [SerializeField] private float UpperLimit = -40f;
         [SerializeField] private float BottomLimit = 70f;
         [SerializeField] private float MouseSensitivity = 21.9f;
@@ -19,7 +18,6 @@ namespace UnityTutorial.PlayerControl
         [SerializeField] private LayerMask GroundCheck;
         [SerializeField] private float AirResistance = 0.8f;
         private Rigidbody _playerRigidbody;
-        private InputManager _inputManager;
         private Animator _animator;
         private bool _grounded = false;
         private bool _hasAnimator;
@@ -31,6 +29,9 @@ namespace UnityTutorial.PlayerControl
         private int _zVelHash;
         private int _crouchHash;
         private float _xRotation;
+        private float _yRotation;
+
+        private PlayerIngameControls _playerControls;
 
         private const float _walkSpeed = 2f;
         private const float _runSpeed = 6f;
@@ -38,11 +39,10 @@ namespace UnityTutorial.PlayerControl
         
 
 
-        private void Start() {
+        private void Start() 
+        {
             _hasAnimator = TryGetComponent<Animator>(out _animator);
             _playerRigidbody = GetComponent<Rigidbody>();
-            _inputManager = GetComponent<InputManager>();
-
 
             _xVelHash = Animator.StringToHash("X_Velocity");
             _yVelHash = Animator.StringToHash("Y_Velocity");
@@ -52,10 +52,38 @@ namespace UnityTutorial.PlayerControl
             _fallingHash = Animator.StringToHash("Falling");
             _crouchHash = Animator.StringToHash("Crouch");
 
+            _playerControls = new PlayerIngameControls();
+            IngameControlsOn(true);
+
             CursorLockState(true);
         }
-        
-        private void CursorLockState(bool state)
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+
+            _camera.GameObject().SetActive(IsOwner);
+            this.enabled = IsOwner;
+        }
+
+        private void IngameControlsOn(bool state)
+        {
+            switch (state)
+            {
+                case true:
+                {
+                    _playerControls.Enable();
+                    break;
+                }
+                case false:
+                {
+                    _playerControls.Disable();
+                    break;
+                }
+            }
+        }
+
+        private static void CursorLockState(bool state)
         {
             Cursor.visible = true;
 
@@ -66,13 +94,19 @@ namespace UnityTutorial.PlayerControl
             };
         }
 
-        private void FixedUpdate() {
+        private void FixedUpdate()
+        {
+            if (!IsOwner) return;
+            
             SampleGround();
             Move();
             HandleJump();
             HandleCrouch();
         }
-        private void LateUpdate() {
+        private void Update()
+        {
+            if (!IsOwner) return;
+            
             CamMovements();
         }
 
@@ -80,20 +114,23 @@ namespace UnityTutorial.PlayerControl
         {
             if(!_hasAnimator) return;
 
-            float targetSpeed = _inputManager.Run ? _runSpeed : _walkSpeed;
-            if(_inputManager.Crouch) targetSpeed = 1.5f;
-            if(_inputManager.Move ==Vector2.zero) targetSpeed = 0;
+            var targetSpeed = _playerControls.PlayerControls.Run.IsPressed() ? _runSpeed : _walkSpeed;
+
+            if(_playerControls.PlayerControls.Crouch.IsPressed()) targetSpeed = _walkSpeed * 0.5f;
+            
+            if(_playerControls.PlayerControls.Movement.ReadValue<Vector2>() == Vector2.zero) targetSpeed = 0;
 
             if(_grounded)
             {
                 
-            _currentVelocity.x = Mathf.Lerp(_currentVelocity.x, _inputManager.Move.x * targetSpeed, AnimBlendSpeed * Time.fixedDeltaTime);
-            _currentVelocity.y =  Mathf.Lerp(_currentVelocity.y, _inputManager.Move.y * targetSpeed, AnimBlendSpeed * Time.fixedDeltaTime);
+                _currentVelocity.x = Mathf.Lerp(_currentVelocity.x, _playerControls.PlayerControls.Movement.ReadValue<Vector2>().x * targetSpeed, AnimBlendSpeed * Time.deltaTime);
+                _currentVelocity.y =  Mathf.Lerp(_currentVelocity.y, _playerControls.PlayerControls.Movement.ReadValue<Vector2>().y * targetSpeed, AnimBlendSpeed * Time.deltaTime);
 
-            var xVelDifference = _currentVelocity.x - _playerRigidbody.velocity.x;
-            var zVelDifference = _currentVelocity.y - _playerRigidbody.velocity.z;
+                var velocity = _playerRigidbody.velocity;
+                var xVelDifference = _currentVelocity.x - velocity.x;
+                var zVelDifference = _currentVelocity.y - velocity.z;
 
-            _playerRigidbody.AddForce(transform.TransformVector(new Vector3(xVelDifference, 0 , zVelDifference)), ForceMode.VelocityChange);
+                _playerRigidbody.AddForce(transform.TransformVector(new Vector3(xVelDifference, 0 , zVelDifference)), ForceMode.VelocityChange);
             }
             else
             {
@@ -109,40 +146,39 @@ namespace UnityTutorial.PlayerControl
         {
             if(!_hasAnimator) return;
 
-            var Mouse_X = _inputManager.Look.x;
-            var Mouse_Y = _inputManager.Look.y;
-            Camera.position = CameraRoot.position;
-            
-            
-            _xRotation -= Mouse_Y * MouseSensitivity * Time.smoothDeltaTime;
-            _xRotation = Mathf.Clamp(_xRotation, UpperLimit, BottomLimit);
+            var looking = _playerControls.PlayerControls.Look.ReadValue<Vector2>();
 
-            Camera.localRotation = Quaternion.Euler(_xRotation, 0 , 0);
-            _playerRigidbody.MoveRotation(_playerRigidbody.rotation * Quaternion.Euler(0, Mouse_X * MouseSensitivity * Time.smoothDeltaTime, 0));
+            var mouseX = looking.x * MouseSensitivity * Time.deltaTime;
+            var mouseY = looking.y * MouseSensitivity * Time.deltaTime;
+            
+            _camera.position = CameraRoot.position;
+
+            _xRotation -= mouseY;
+            _xRotation = Mathf.Clamp(_xRotation, UpperLimit, BottomLimit);
+            
+            _yRotation += mouseX;
+
+            _camera.localRotation = Quaternion.Euler(_xRotation, 0 , 0);
+            transform.rotation = Quaternion.Euler(0, _yRotation, 0);
         }
 
-        private void HandleCrouch() => _animator.SetBool(_crouchHash , _inputManager.Crouch);
+        private void HandleCrouch()
+        {
+            if (!_hasAnimator) return;
+            
+            _animator.SetBool(_crouchHash, _playerControls.PlayerControls.Crouch.IsPressed());
+        }
 
 
         private void HandleJump()
         {
             if(!_hasAnimator) return;
-            if(!_inputManager.Jump) return;
+            
+            if(!_playerControls.PlayerControls.Jump.IsPressed()) return;
+            
             if(!_grounded) return;
+            
             _animator.SetTrigger(_jumpHash);
-
-            //Enable this if you want B-Hop
-            //_playerRigidbody.AddForce(-_playerRigidbody.velocity.y * Vector3.up, ForceMode.VelocityChange);
-            //_playerRigidbody.AddForce(Vector3.up * JumpFactor, ForceMode.Impulse);
-            //_animator.ResetTrigger(_jumpHash);
-        }
-
-        public void JumpAddForce()
-        {
-            //Comment this out if you want B-Hop, otherwise the player will jump twice in the air
-            _playerRigidbody.AddForce(-_playerRigidbody.velocity.y * Vector3.up, ForceMode.VelocityChange);
-            _playerRigidbody.AddForce(Vector3.up * JumpFactor, ForceMode.Impulse);
-            _animator.ResetTrigger(_jumpHash);
         }
 
         private void SampleGround()
@@ -161,7 +197,6 @@ namespace UnityTutorial.PlayerControl
             _grounded = false;
             _animator.SetFloat(_zVelHash, _playerRigidbody.velocity.y);
             SetAnimationGrounding();
-            return;
         }
 
         private void SetAnimationGrounding()
@@ -170,4 +205,3 @@ namespace UnityTutorial.PlayerControl
             _animator.SetBool(_groundHash, _grounded);
         }
     }
-}
