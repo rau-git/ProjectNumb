@@ -7,136 +7,136 @@ using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
 public sealed class PlayerController : NetworkBehaviour
+{
+    #region Assignables
+
+    [Header("Assign")] [SerializeField] private Transform _cameraRoot;
+
+    [SerializeField] private Transform _camera;
+
+    private Rigidbody _playerRigidbody;
+
+    private Animator _animator;
+
+    [SerializeField] private LayerMask _groundCheck;
+
+    private PlayerIngameControls _playerControls;
+
+    #endregion
+
+    #region DesignOptions
+
+    [Header("Designer Options")] [SerializeField]
+    private float _animationBlendSpeed = 8.9f;
+
+    [SerializeField] private float _upperCameraLimit = -40f;
+
+    [SerializeField] private float _bottomCameraLimit = 70f;
+
+    [SerializeField] private float _distanceToGround = 0.8f;
+
+    [SerializeField] private float _airResistance = 0.8f;
+
+    private const float _walkSpeed = 2f;
+
+    private const float _runSpeed = 6f;
+
+    #endregion
+
+    #region PlayerOptions
+
+    [Header("Player Options")] [SerializeField]
+    private float _mouseSensitivity;
+
+    #endregion
+
+    private int _xVelHash, _yVelHash, _jumpHash, _groundHash, _fallingHash, _zVelHash, _crouchHash;
+
+    private bool _grounded;
+    private bool _hasAnimator;
+    private float _xRotation;
+    private float _yRotation;
+    private Vector2 _currentVelocity;
+
+    public override void OnStartClient()
     {
-        #region Assignables
-        [Header("Assign")]
-        [SerializeField] 
-        private Transform _cameraRoot;
-        
-        [SerializeField] 
-        private Transform _camera;
-        
-        private Rigidbody _playerRigidbody;
-        
-        private Animator _animator;
-        
-        [SerializeField] 
-        private LayerMask _groundCheck;
-        
-        private PlayerIngameControls _playerControls;
-        
-        #endregion
-        
-        #region DesignOptions
-        [Header("Designer Options")]
-        [SerializeField] 
-        private float _animationBlendSpeed = 8.9f;
-        
-        [SerializeField] 
-        private float _upperCameraLimit = -40f;
-        
-        [SerializeField] 
-        private float _bottomCameraLimit = 70f;
-        
-        [SerializeField] 
-        private float _distanceToGround = 0.8f;
-        
-        [SerializeField] 
-        private float _airResistance = 0.8f;
-        
-        private const float _walkSpeed = 2f;
-        
-        private const float _runSpeed = 6f;
-        
-        #endregion
-        
-        #region PlayerOptions
-        [Header("Player Options")]
-        [SerializeField] 
-        private float _mouseSensitivity = 21.9f;
-        
-        #endregion
-        
-        private int _xVelHash, _yVelHash ,_jumpHash, _groundHash, _fallingHash, _zVelHash, _crouchHash;
+        base.OnStartClient();
 
-        private bool _grounded;
-        private bool _hasAnimator;
-        private float _xRotation;
-        private float _yRotation;
-        private Vector2 _currentVelocity;
+        _camera.GameObject().SetActive(IsOwner);
 
-        private void Start() 
+        if (!IsOwner) return;
+        
+        _playerRigidbody = GetComponent<Rigidbody>();
+        _playerControls = new PlayerIngameControls();
+        IngameControlsOn(true);
+        CursorLockState(true);
+    }
+
+    public override void OnStartNetwork()
+    {
+        base.OnStartNetwork();
+        
+        _hasAnimator = TryGetComponent(out _animator);
+        AnimationAssignment();
+    }
+
+    private void AnimationAssignment()
+    {
+        _xVelHash = Animator.StringToHash("X_Velocity");
+        _yVelHash = Animator.StringToHash("Y_Velocity");
+        _zVelHash = Animator.StringToHash("Z_Velocity");
+        _jumpHash = Animator.StringToHash("Jump");
+        _groundHash = Animator.StringToHash("Grounded");
+        _fallingHash = Animator.StringToHash("Falling");
+        _crouchHash = Animator.StringToHash("Crouch");
+    }
+
+    private void IngameControlsOn(bool state)
+    {
+        switch (state)
         {
-            _hasAnimator = TryGetComponent(out _animator);
-            _playerRigidbody = GetComponent<Rigidbody>();
-
-            _xVelHash = Animator.StringToHash("X_Velocity");
-            _yVelHash = Animator.StringToHash("Y_Velocity");
-            _zVelHash = Animator.StringToHash("Z_Velocity");
-            _jumpHash = Animator.StringToHash("Jump");
-            _groundHash = Animator.StringToHash("Grounded");
-            _fallingHash = Animator.StringToHash("Falling");
-            _crouchHash = Animator.StringToHash("Crouch");
-
-            _playerControls = new PlayerIngameControls();
-            IngameControlsOn(true);
-
-            CursorLockState(true);
-        }
-
-        public override void OnStartClient()
-        {
-            base.OnStartClient();
-
-            _camera.GameObject().SetActive(IsOwner);
-            this.enabled = IsOwner;
-        }
-
-        private void IngameControlsOn(bool state)
-        {
-            switch (state)
+            case true:
             {
-                case true:
-                {
-                    _playerControls.Enable();
-                    break;
-                }
-                case false:
-                {
-                    _playerControls.Disable();
-                    break;
-                }
+                _playerControls.Enable();
+                break;
+            }
+            case false:
+            {
+                _playerControls.Disable();
+                break;
             }
         }
+    }
 
-        private static void CursorLockState(bool state)
+    private static void CursorLockState(bool state)
+    {
+        Cursor.visible = !state;
+
+        Cursor.lockState = state switch
         {
-            Cursor.visible = true;
+            true => CursorLockMode.Locked,
+            false => CursorLockMode.None
+        };
+    }
 
-            Cursor.lockState = state switch
-            {
-                true => CursorLockMode.Locked,
-                false => CursorLockMode.None
-            };
-        }
+    private void FixedUpdate()
+    {
+        if (!IsOwner) return;
 
-        private void FixedUpdate()
-        {
-            if (!IsOwner) return;
-            
-            SampleGround();
-            Move();
-            HandleJump();
-            HandleCrouch();
-        }
-        private void Update()
-        {
-            if (!IsOwner) return;
-            
-            CamMovements();
-        }
+        SampleGround();
+        Move();
+        HandleJump();
+        HandleCrouch();
+    }
 
-        private void Move()
+    private void Update()
+    {
+        if (!IsOwner) return;
+
+        CamMovements();
+    }
+
+    private void Move()
         {
             if(!_hasAnimator) return;
 

@@ -895,7 +895,6 @@ GameObject:
   - component: {fileID: 5933109015736981997}
   - component: {fileID: 6211679590903975093}
   - component: {fileID: -6748305496170491442}
-  - component: {fileID: 4794969172714265295}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -996,7 +995,7 @@ MonoBehaviour:
   _bottomCameraLimit: 70
   _distanceToGround: 0.8
   _airResistance: 0.8
-  _mouseSensitivity: 1
+  _mouseSensitivity: 5
 --- !u!114 &5933109015736981997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1021,10 +1020,10 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 4
+  <PrefabId>k__BackingField: 1
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 14896710154512797689
+  <AssetPathHash>k__BackingField: 3164269329874952858
   _sceneNetworkObjects: []
 --- !u!114 &6211679590903975093
 MonoBehaviour:
@@ -1046,12 +1045,12 @@ MonoBehaviour:
     Position: 2
     Rotation: 2
     Scale: 0
-  _interpolation: 1
+  _interpolation: 2
   _extrapolation: 0
   _enableTeleport: 0
   _teleportThreshold: 10
   _clientAuthoritative: 1
-  _sendToOwner: 1
+  _sendToOwner: 0
   _interval: 1
   _synchronizePosition: 1
   _positionSnapping:
@@ -1089,22 +1088,6 @@ MonoBehaviour:
   _interpolation: 2
   _clientAuthoritative: 1
   _sendToOwner: 0
---- !u!114 &4794969172714265295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2816779862137294159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _overrideType: 2
-  _updateHostVisibility: 1
-  _observerConditions:
-  - {fileID: 11400000, guid: 2033f54fd2794464bae08fa5a55c8996, type: 2}
 --- !u!1 &2972576166760055820
 GameObject:
   m_ObjectHideFlags: 0

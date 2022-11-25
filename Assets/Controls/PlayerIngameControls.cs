@@ -71,6 +71,15 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UnlockMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""cf4660c6-a02e-4be2-94f3-b34989fba30a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d18fd34-bf60-4c28-b435-b0ee5879457c"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UnlockMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         m_PlayerControls_Look = m_PlayerControls.FindAction("Look", throwIfNotFound: true);
         m_PlayerControls_Run = m_PlayerControls.FindAction("Run", throwIfNotFound: true);
         m_PlayerControls_Crouch = m_PlayerControls.FindAction("Crouch", throwIfNotFound: true);
+        m_PlayerControls_UnlockMouse = m_PlayerControls.FindAction("UnlockMouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +270,7 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
     private readonly InputAction m_PlayerControls_Look;
     private readonly InputAction m_PlayerControls_Run;
     private readonly InputAction m_PlayerControls_Crouch;
+    private readonly InputAction m_PlayerControls_UnlockMouse;
     public struct PlayerControlsActions
     {
         private @PlayerIngameControls m_Wrapper;
@@ -258,6 +280,7 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         public InputAction @Look => m_Wrapper.m_PlayerControls_Look;
         public InputAction @Run => m_Wrapper.m_PlayerControls_Run;
         public InputAction @Crouch => m_Wrapper.m_PlayerControls_Crouch;
+        public InputAction @UnlockMouse => m_Wrapper.m_PlayerControls_UnlockMouse;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +305,9 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @Crouch.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnCrouch;
+                @UnlockMouse.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUnlockMouse;
+                @UnlockMouse.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUnlockMouse;
+                @UnlockMouse.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUnlockMouse;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -301,6 +327,9 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @UnlockMouse.started += instance.OnUnlockMouse;
+                @UnlockMouse.performed += instance.OnUnlockMouse;
+                @UnlockMouse.canceled += instance.OnUnlockMouse;
             }
         }
     }
@@ -312,5 +341,6 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         void OnLook(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnUnlockMouse(InputAction.CallbackContext context);
     }
 }

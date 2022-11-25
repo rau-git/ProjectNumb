@@ -1,11 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using FishNet.Object;
 using Sirenix.OdinInspector;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerCharacterController : MonoBehaviour
+public class PlayerCharacterController : NetworkBehaviour
 {
     [Header("Assign")] [SerializeField, Required, ChildGameObjectsOnly]
     private Rigidbody _playerRigidbody;
@@ -58,14 +56,25 @@ public class PlayerCharacterController : MonoBehaviour
         _doJump = false;
     }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        
+        _playerCamera.SetActive(IsOwner);
+    }
+
     private void Update()
     {
+        if (!IsOwner) return;
+        
         GetInput();
         MoveCamera();
     }
 
     private void FixedUpdate()
     {
+        if (!IsOwner) return;
+        
         MovePlayer();
         Jump();
         Deaccelerate();
