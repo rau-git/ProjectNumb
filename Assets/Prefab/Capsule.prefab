@@ -360,9 +360,11 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 9163644741400046225}
   _networkObjectCache: {fileID: 9163644741400046225}
-  _moveSpeed: 100
-  _maxSpeed: 10
   _playerCamera: {fileID: 4221551432840464731}
+  _moveForce: 20
+  _airForce: 10
+  _maxSpeed: 10
+  _deaccelerationSpeed: 0.2
   _mouseSensitivity: 5
 --- !u!114 &9163644741400046225
 MonoBehaviour:

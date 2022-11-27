@@ -3,30 +3,32 @@ using FishNet.Object;
 
 public class FishNetworkingMovement : NetworkBehaviour
 {
-    [SerializeField]
-    private float _moveSpeed;
+    [Header("Assign Objects")] 
+    [SerializeField] private GameObject _playerCamera;
     private Rigidbody _rigidbody;
-    [SerializeField]
-    private float _maxSpeed;
-
     private PlayerIngameControls _playerControls;
+    
+    [Header("Movement Variables")]
+    [SerializeField] private float _moveForce;
+    [SerializeField] private float _airForce;
+    [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _deaccelerationSpeed;
 
-    [SerializeField] 
-    private GameObject _playerCamera;
+    [Header("Player Options")]
+    [SerializeField] private float _mouseSensitivity;
 
-    private Vector2 _playerMovementInput;
-
-    [SerializeField] 
-    private float _mouseSensitivity;
-
+    #region Class Variables
     private float _xRotation;
     private float _yRotation;
+    private Vector2 _playerMovementInput;
+    #endregion
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _playerControls = new PlayerIngameControls();
         _playerControls.Enable();
+        LockCursor(true);
     }
 
     public override void OnStartClient()
@@ -41,25 +43,33 @@ public class FishNetworkingMovement : NetworkBehaviour
         if (!IsOwner) return;
 
         GetInput();
+        MovePlayer();
         MoveCamera();
     }
 
     private void GetInput()
     {
         _playerMovementInput = _playerControls.PlayerControls.Movement.ReadValue<Vector2>();
-        
-        MovePlayer(_playerMovementInput);
+
+        if (_playerMovementInput == Vector2.zero)
+        {
+            _rigidbody.velocity = Vector3.Lerp(_rigidbody.velocity, Vector3.zero, _deaccelerationSpeed);
+        }
     }
 
-    private void MovePlayer(Vector2 movement)
+    private void MovePlayer()
     {
-        var playerForwardBackMovement = Vector3.forward * _playerMovementInput.y;
-        var playerLeftRightMovement = Vector3.right * _playerMovementInput.x;
+        var currentMoveForce = _moveForce;
+
+        var playerForwardBackMovement = transform.forward * _playerMovementInput.y;
+        var playerLeftRightMovement = transform.right * _playerMovementInput.x;
         var playerMovementDirection = Vector3.ClampMagnitude(playerForwardBackMovement + playerLeftRightMovement, 1);
+        
+        if (CheckForGround()) currentMoveForce = _airForce;
         
         if(_rigidbody.velocity.magnitude > _maxSpeed) return;
         
-        _rigidbody.AddForce(playerMovementDirection * _moveSpeed * Time.deltaTime, ForceMode.VelocityChange);
+        _rigidbody.AddForce(playerMovementDirection * currentMoveForce * Time.deltaTime, ForceMode.VelocityChange);
     }
     
     private void MoveCamera()
@@ -74,6 +84,29 @@ public class FishNetworkingMovement : NetworkBehaviour
         _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
 
         _playerCamera.transform.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);
-        transform.rotation = Quaternion.Euler(0f, _yRotation, 0f);
+        gameObject.transform.rotation = Quaternion.Euler(0f, _yRotation, 0f);
+    }
+
+    private bool CheckForGround()
+    {
+        Physics.Raycast(transform.position, -Vector3.up, out var hit, 0.1f);
+        
+        return hit.collider != null;
+    }
+
+    private static void LockCursor(bool state)
+    {
+        switch (state)
+        {
+            case true:
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = true;
+                break;
+            
+            case false:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = false;
+                break;
+        }
     }
 }
