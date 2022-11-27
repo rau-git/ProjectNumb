@@ -1,6 +1,5 @@
 using FishNet.Object;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCharacterController : NetworkBehaviour
@@ -59,34 +58,32 @@ public class PlayerCharacterController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        
-        _playerCamera.SetActive(IsOwner);
+
+        _playerCamera.GetComponent<Camera>().enabled = IsOwner;
+        _playerCamera.GetComponent<AudioListener>().enabled = IsOwner;
     }
 
     private void Update()
     {
-        if (!IsOwner) return;
-        
         GetInput();
         MoveCamera();
     }
 
     private void FixedUpdate()
     {
-        if (!IsOwner) return;
-        
         MovePlayer();
         Jump();
-        Deaccelerate();
         BetterGravity();
     }
 
+    [Client(RequireOwnership = true)]
     private void GetInput()
     {
         _playerMovementInput = _playerControls.PlayerControls.Movement.ReadValue<Vector2>();
         _doJump = _playerControls.PlayerControls.Jump.WasPressedThisFrame();
     }
 
+    [Client(RequireOwnership = true)]
     private void MovePlayer()
     {
         var playerForwardBackMovement = Vector3.forward * _playerMovementInput.y;
@@ -101,14 +98,7 @@ public class PlayerCharacterController : NetworkBehaviour
         _playerRigidbody.AddRelativeForce(playerMovementDirection * _movementForce * Time.deltaTime, ForceMode.VelocityChange);
     }
 
-    private void Deaccelerate()
-    {
-        if (!_playerControls.PlayerControls.Movement.IsPressed())
-        {
-            _playerRigidbody.velocity = Vector3.Lerp(_playerRigidbody.velocity, Vector3.zero, _movementAcceleration);
-        }
-    }
-
+    [Client(RequireOwnership = true)]
     private void MoveCamera()
     {
         var looking = _playerControls.PlayerControls.Look.ReadValue<Vector2>();
@@ -124,6 +114,7 @@ public class PlayerCharacterController : NetworkBehaviour
         transform.rotation = Quaternion.Euler(0f, _yRotation, 0f);
     }
 
+    [Client(RequireOwnership = true)]
     private void Jump()
     {
         if (!_doJump || !CheckForGround()) return;
@@ -139,11 +130,13 @@ public class PlayerCharacterController : NetworkBehaviour
         }
     }
 
+    [Client(RequireOwnership = true)]
     private void BetterGravity()
     {
         _playerRigidbody.AddForce(transform.up * Physics.gravity.y, ForceMode.Acceleration);
     }
 
+    [Client(RequireOwnership = true)]
     private bool CheckForGround()
     {
         RaycastHit hit;
@@ -151,6 +144,7 @@ public class PlayerCharacterController : NetworkBehaviour
         return Physics.Raycast(_groundCheckObject.transform.position, -transform.up, out hit, 0.1f);
     }
 
+    [Client(RequireOwnership = true)]
     private void CursorLockToggle(bool state)
     {
         if (state)

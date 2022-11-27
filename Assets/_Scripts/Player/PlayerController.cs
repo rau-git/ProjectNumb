@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
-using Unity.VisualScripting;
-using UnityEngine.Serialization;
+
 
 public sealed class PlayerController : NetworkBehaviour
 {
@@ -54,28 +50,34 @@ public sealed class PlayerController : NetworkBehaviour
 
     private bool _grounded;
     private bool _hasAnimator;
+    
     private float _xRotation;
     private float _yRotation;
+    
     private Vector2 _currentVelocity;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-
-        _camera.GameObject().SetActive(IsOwner);
+        
+        _camera.gameObject.SetActive(IsOwner);
+        _camera.gameObject.GetComponent<AudioListener>().enabled = IsOwner;
 
         if (!IsOwner) return;
-        
+
         _playerRigidbody = GetComponent<Rigidbody>();
+        
         _playerControls = new PlayerIngameControls();
+        
         IngameControlsOn(true);
+        
         CursorLockState(true);
     }
 
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
-        
+
         _hasAnimator = TryGetComponent(out _animator);
         AnimationAssignment();
     }
@@ -131,9 +133,27 @@ public sealed class PlayerController : NetworkBehaviour
 
     private void Update()
     {
+        LogTransformInformation();
+        
         if (!IsOwner) return;
 
         CamMovements();
+    }
+
+    private void LogTransformInformation()
+    {
+        if (IsOwner)
+        {
+            Debug.Log($"Client transform is: {this.NetworkObject.OwnerId} + {this.gameObject.transform.position}");
+        }
+
+        if (IsServer)
+        {
+            foreach (NetworkObject networkObject in this.NetworkObject.Owner.Objects)
+            {
+                Debug.Log($"Server known position is: {networkObject.OwnerId}: {networkObject.transform.position}");
+            }
+        }
     }
 
     private void Move()
