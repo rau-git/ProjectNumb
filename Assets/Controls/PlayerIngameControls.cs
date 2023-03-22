@@ -80,6 +80,15 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrimaryFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""832bf289-8d2a-4767-97ea-a7937f4d9a3d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,17 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                     ""action"": ""UnlockMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5c39c93-96d8-47a3-b408-9d65e7ee3b9c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +226,7 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         m_PlayerControls_Run = m_PlayerControls.FindAction("Run", throwIfNotFound: true);
         m_PlayerControls_Crouch = m_PlayerControls.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerControls_UnlockMouse = m_PlayerControls.FindAction("UnlockMouse", throwIfNotFound: true);
+        m_PlayerControls_PrimaryFire = m_PlayerControls.FindAction("PrimaryFire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +292,7 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
     private readonly InputAction m_PlayerControls_Run;
     private readonly InputAction m_PlayerControls_Crouch;
     private readonly InputAction m_PlayerControls_UnlockMouse;
+    private readonly InputAction m_PlayerControls_PrimaryFire;
     public struct PlayerControlsActions
     {
         private @PlayerIngameControls m_Wrapper;
@@ -281,6 +303,7 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         public InputAction @Run => m_Wrapper.m_PlayerControls_Run;
         public InputAction @Crouch => m_Wrapper.m_PlayerControls_Crouch;
         public InputAction @UnlockMouse => m_Wrapper.m_PlayerControls_UnlockMouse;
+        public InputAction @PrimaryFire => m_Wrapper.m_PlayerControls_PrimaryFire;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +331,9 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @UnlockMouse.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUnlockMouse;
                 @UnlockMouse.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUnlockMouse;
                 @UnlockMouse.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUnlockMouse;
+                @PrimaryFire.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryFire;
+                @PrimaryFire.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryFire;
+                @PrimaryFire.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryFire;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -330,6 +356,9 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @UnlockMouse.started += instance.OnUnlockMouse;
                 @UnlockMouse.performed += instance.OnUnlockMouse;
                 @UnlockMouse.canceled += instance.OnUnlockMouse;
+                @PrimaryFire.started += instance.OnPrimaryFire;
+                @PrimaryFire.performed += instance.OnPrimaryFire;
+                @PrimaryFire.canceled += instance.OnPrimaryFire;
             }
         }
     }
@@ -342,5 +371,6 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         void OnRun(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnUnlockMouse(InputAction.CallbackContext context);
+        void OnPrimaryFire(InputAction.CallbackContext context);
     }
 }

@@ -5,6 +5,7 @@ public class FishNetworkingMovement : NetworkBehaviour
 {
     [Header("Assign Objects")] 
     [SerializeField] private GameObject _playerCamera;
+    [SerializeField] private GameObject _HUD;
     private Rigidbody _rigidbody;
     private PlayerIngameControls _playerControls;
     
@@ -36,6 +37,7 @@ public class FishNetworkingMovement : NetworkBehaviour
         base.OnStartClient();
         _playerCamera.GetComponent<Camera>().enabled = IsOwner;
         _playerCamera.GetComponent<AudioListener>().enabled = IsOwner;
+        _HUD.SetActive(IsOwner);
     }
 
     private void Update()

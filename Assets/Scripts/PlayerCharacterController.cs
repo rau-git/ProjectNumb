@@ -10,6 +10,9 @@ public class PlayerCharacterController : NetworkBehaviour
     [SerializeField, Required, ChildGameObjectsOnly]
     private GameObject _playerCamera;
 
+    [SerializeField, Required, ChildGameObjectsOnly] 
+    private GameObject _HUD;
+
     [SerializeField, Required, ChildGameObjectsOnly]
     private GameObject _groundCheckObject;
 
@@ -61,6 +64,7 @@ public class PlayerCharacterController : NetworkBehaviour
 
         _playerCamera.GetComponent<Camera>().enabled = IsOwner;
         _playerCamera.GetComponent<AudioListener>().enabled = IsOwner;
+        _HUD.SetActive(IsOwner);
     }
 
     private void Update()
