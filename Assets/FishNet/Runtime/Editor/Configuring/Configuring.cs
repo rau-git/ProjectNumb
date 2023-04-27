@@ -2,10 +2,6 @@
 using System.Xml.Serialization;
 
 #if UNITY_EDITOR
-using UnityEditor.Compilation;
-using UnityEditor.Build.Reporting;
-using UnityEditor;
-using UnityEditor.Build;
 #endif
 
 namespace FishNet.Configuring

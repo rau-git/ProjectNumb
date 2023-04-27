@@ -4,7 +4,6 @@ using System;
 using FishNet.Object.Helping;
 using System.Linq;
 #if UNITY_EDITOR
-using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEditor;
 #endif

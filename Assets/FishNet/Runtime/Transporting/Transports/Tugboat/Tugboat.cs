@@ -1,7 +1,6 @@
 using FishNet.Managing;
 using FishNet.Managing.Logging;
 using FishNet.Managing.Transporting;
-using LiteNetLib;
 using LiteNetLib.Layers;
 using System;
 using System.Runtime.CompilerServices;

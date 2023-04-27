@@ -1,7 +1,5 @@
 ﻿using FishNet.Connection;
-using MonoFN.Cecil;
 using System;
-using System.Reflection;
 
 namespace FishNet.CodeGenerating.Helping
 {

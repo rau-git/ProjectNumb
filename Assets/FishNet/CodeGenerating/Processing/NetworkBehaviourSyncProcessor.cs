@@ -2,7 +2,6 @@
 using FishNet.CodeGenerating.Helping;
 using FishNet.CodeGenerating.Helping.Extension;
 using FishNet.Configuring;
-using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Object.Synchronizing.Internal;
 using FishNet.Serializing;
@@ -12,7 +11,6 @@ using MonoFN.Cecil.Cil;
 using MonoFN.Cecil.Rocks;
 using MonoFN.Collections.Generic;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace FishNet.CodeGenerating.Processing
 {

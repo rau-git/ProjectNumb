@@ -2,7 +2,6 @@
 using FishNet.Object.Synchronizing;
 using FishNet.Object.Synchronizing.Internal;
 using FishNet.Serializing;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FishNet.Example.ComponentStateSync

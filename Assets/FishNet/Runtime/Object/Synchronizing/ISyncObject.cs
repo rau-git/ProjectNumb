@@ -1,6 +1,5 @@
 ﻿using FishNet.Managing;
 using FishNet.Serializing;
-using System;
 
 namespace FishNet.Object.Synchronizing.Internal
 {

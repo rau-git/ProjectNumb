@@ -1,6 +1,4 @@
-﻿using FishNet.Utility.Constant;
-using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif

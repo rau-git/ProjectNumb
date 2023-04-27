@@ -1,5 +1,4 @@
-﻿using FishNet.Managing.Logging;
-using FishNet.Managing.Object;
+﻿using FishNet.Managing.Object;
 using FishNet.Managing.Utility;
 using FishNet.Object;
 using FishNet.Object.Helping;
@@ -8,7 +7,6 @@ using FishNet.Transporting;
 using FishNet.Utility.Extension;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using UnityEngine;
 
 namespace FishNet.Managing.Client
 {

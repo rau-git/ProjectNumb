@@ -1,5 +1,4 @@
-﻿using FishNet.Managing;
-using FishNet.Serializing.Helping;
+﻿using FishNet.Serializing.Helping;
 using System;
 
 namespace FishNet.Connection

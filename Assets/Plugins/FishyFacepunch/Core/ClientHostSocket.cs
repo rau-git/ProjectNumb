@@ -2,7 +2,6 @@
 using FishNet.Transporting;
 using FishyFacepunch.Server;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace FishyFacepunch.Client

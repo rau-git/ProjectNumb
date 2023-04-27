@@ -1,8 +1,5 @@
 ﻿using FishNet.Documenting;
-using FishNet.Object;
-using FishNet.Transporting;
 using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace FishNet.Component.Prediction

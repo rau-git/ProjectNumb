@@ -1,5 +1,4 @@
-﻿using FishNet.Managing;
-using System;
+﻿using System;
 
 namespace FishNet.Connection
 {

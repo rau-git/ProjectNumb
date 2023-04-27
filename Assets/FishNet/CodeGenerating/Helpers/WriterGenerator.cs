@@ -1,9 +1,7 @@
 ﻿using FishNet.CodeGenerating.Helping.Extension;
-using FishNet.Object;
 using FishNet.Serializing;
 using MonoFN.Cecil;
 using MonoFN.Cecil.Cil;
-using UnityEngine;
 
 namespace FishNet.CodeGenerating.Helping
 {

@@ -1,7 +1,5 @@
-﻿using FishNet.Managing;
-using FishNet.Managing.Timing;
+﻿using FishNet.Managing.Timing;
 using System;
-using UnityEngine;
 
 namespace FishNet.Connection
 {
