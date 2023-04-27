@@ -15,5 +15,9 @@ MonoBehaviour:
   _itemName: Shiv
   _itemDescription: A small crude knife
   _itemIcon: {fileID: 0}
+  _isStackable: 1
+  _quantity: 0
+  _value: 35
+  _amountDropped: 0
   _durability: 80
   _damage: 2

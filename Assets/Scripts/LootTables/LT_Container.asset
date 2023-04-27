@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d15fb3618d7464fb83ffb25b86ab86, type: 3}
+  m_Name: LT_Container
+  m_EditorClassIdentifier: 
+  _lootDrops:
+  - {fileID: 11400000, guid: ffe227ca379edec41aa6c80be1175c34, type: 2}
+  - {fileID: 11400000, guid: b589f80cfa72ef84fbf1396f02caa3ba, type: 2}
+  - {fileID: 11400000, guid: 2dbe6bf71a524bd45b4352c17d20f6cb, type: 2}
+  - {fileID: 11400000, guid: d3cb52bd184922046ba8b1b3caf2dee8, type: 2}

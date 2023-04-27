@@ -39,29 +39,29 @@ public class PlayerHungerManager : NetworkBehaviour
     {
         base.OnStartClient();
         
-        ActivateHunger();
-        ActivateThirst();
+        EnableHunger();
+        EnableThirst();
     }
 
     private void Update()
     {
-        RPCInformServer(base.OwnerId.ToString(), _hunger.ToString(), _thirst.ToString());
+        //RPCInformServer(base.OwnerId.ToString(), _hunger.ToString(), _thirst.ToString());
     }
 
     [ServerRpc]
     private void RPCInformServer(string sender, string messageHunger, string messageThirst)
     {
-        Debug.Log($"{sender}: my stats are food: {messageHunger} and thirst: {messageThirst}");
+        //Debug.Log($"{sender}: my stats are food: {messageHunger} and thirst: {messageThirst}");
     }
 
-    private void ActivateHunger()
+    private void EnableHunger()
     {
-        InvokeRepeating(nameof(CauseHunger), _decayTimeHunger, _decayTimeHunger);
+        InvokeRepeating(nameof(CauseHunger), 0, _decayTimeHunger);
     }
 
-    private void ActivateThirst()
+    private void EnableThirst()
     {
-        InvokeRepeating(nameof(CauseThirst), _decayTimeThirst, _decayTimeThirst);
+        InvokeRepeating(nameof(CauseThirst), 0, _decayTimeThirst);
     }
     
     private void DisableThirst()
@@ -76,25 +76,27 @@ public class PlayerHungerManager : NetworkBehaviour
 
     private void CauseHunger()
     {
+        if (!IsOwner || !IsServer) return; 
         RPCUpdateHunger(base.Owner);
     }
 
     private void CauseThirst()
     {
+        if (!IsOwner || !IsServer) return; 
         RPCUpdateThirst(base.Owner);
     }
 
-    [TargetRpc]
+    [ServerRpc]
     private void RPCUpdateThirst(NetworkConnection connection)
     {
         _thirst -= _thirstDrainRate;
-        _hudManager.SetHUDThirst(_maxThirst, _thirst);
+        _hudManager.SetHUDThirst(connection, _maxThirst, _thirst);
     }
 
-    [TargetRpc]
+    [ServerRpc]
     private void RPCUpdateHunger(NetworkConnection connection)
     {
         _hunger -= _hungerDrainRate;
-        _hudManager.SetHUDHunger(_maxHunger, _hunger);
+        _hudManager.SetHUDHunger(connection, _maxHunger, _hunger);
     }
 }

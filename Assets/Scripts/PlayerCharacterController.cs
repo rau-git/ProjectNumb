@@ -52,7 +52,7 @@ public class PlayerCharacterController : NetworkBehaviour
 
     private void Start()
     {
-        CursorLockToggle(true);
+        CursorLockToggle(false);
 
         _mouseSensitivity *= _mouseSensitivityMultiplier;
         _doJump = false;
@@ -156,7 +156,7 @@ public class PlayerCharacterController : NetworkBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-        else
+        if (!state)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

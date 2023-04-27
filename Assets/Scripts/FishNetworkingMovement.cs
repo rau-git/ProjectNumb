@@ -29,7 +29,7 @@ public class FishNetworkingMovement : NetworkBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _playerControls = new PlayerIngameControls();
         _playerControls.Enable();
-        LockCursor(true);
+        LockCursor(false);
     }
 
     public override void OnStartClient()
@@ -71,7 +71,7 @@ public class FishNetworkingMovement : NetworkBehaviour
         
         if(_rigidbody.velocity.magnitude > _maxSpeed) return;
         
-        _rigidbody.AddForce(playerMovementDirection * currentMoveForce * Time.deltaTime, ForceMode.VelocityChange);
+        _rigidbody.AddForce(playerMovementDirection * currentMoveForce * Time.deltaTime, ForceMode.Force);
     }
     
     private void MoveCamera()
@@ -102,12 +102,12 @@ public class FishNetworkingMovement : NetworkBehaviour
         {
             case true:
                 Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = true;
+                Cursor.visible = false;
                 break;
             
             case false:
                 Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = false;
+                Cursor.visible = true;
                 break;
         }
     }

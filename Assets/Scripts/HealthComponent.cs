@@ -1,24 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
 
-public class HealthComponent : NetworkBehaviour
+public class HealthComponent : NetworkBehaviour, IDamageable
 {
-    /*
-     * this is a basic level of what should be a finished product
-     * localising health to the client will allow the user to use
-     * programs like cheat engine to change their values locally without
-     * servers authorising
-     *
-     * the final product should be health values stored server side so the server can authorise
-     * all changes to these values, same will apply to hunger and thirst, but being less important
-     * values they should only be send periodically to the user
-     * 
-     */
-
     private HUDManager _hudManager;
     
     [SerializeField, SyncVar]
@@ -35,7 +20,7 @@ public class HealthComponent : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        OnDamage(0);
+        OnDamage(0, gameObject);
     }
 
     private void Start()
@@ -48,7 +33,7 @@ public class HealthComponent : NetworkBehaviour
         _currentHealth += healAmount;
     }
 
-    public void OnDamage(float damageAmount)
+    public void OnDamage(float damageAmount, GameObject attackerGO)
     {
         if (_currentHealth - damageAmount <= 0f)
         {
@@ -56,6 +41,6 @@ public class HealthComponent : NetworkBehaviour
         }
 
         _currentHealth -= damageAmount;
-        _hudManager.SetHUDHealth(_maxHealth, _currentHealth);
+        _hudManager.SetHUDHealth(NetworkObject.LocalConnection, _maxHealth, _currentHealth);
     }
 }
