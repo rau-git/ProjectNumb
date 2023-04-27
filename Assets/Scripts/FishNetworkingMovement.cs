@@ -29,7 +29,7 @@ public class FishNetworkingMovement : NetworkBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _playerControls = new PlayerIngameControls();
         _playerControls.Enable();
-        LockCursor(false);
+        LockCursor(true);
     }
 
     public override void OnStartClient()

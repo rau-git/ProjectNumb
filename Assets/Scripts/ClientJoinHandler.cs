@@ -13,7 +13,13 @@ public class ClientJoinHandler : MonoBehaviour
 
     private void Update()
     {
-        _transportManager.SetServerBindAddress(_serverField.text, 0);
-        _transportManager.SetClientAddress(_clientField.text);
+        
+        _transportManager.SetServerBindAddress(_serverField.text.ToString(), 0);
+        _transportManager.SetClientAddress(_clientField.text.ToString());
+        
+        /*
+        _transportManager.SetServerBindAddress(Steamworks.SteamClient.SteamId.ToString(), 0);
+        _transportManager.SetClientAddress(Steamworks.SteamClient.SteamId.ToString());
+        */
     }
 }
