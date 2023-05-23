@@ -35,6 +35,7 @@ public class FishNetworkingMovement : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        // We have to disable components other players would end up also using
         _playerCamera.GetComponent<Camera>().enabled = IsOwner;
         _playerCamera.GetComponent<AudioListener>().enabled = IsOwner;
         _HUD.SetActive(IsOwner);
