@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29d15fb3618d7464fb83ffb25b86ab86, type: 3}
-  m_Name: LT_Container
+  m_Name: LT_MeleeWeapons
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: b589f80cfa72ef84fbf1396f02caa3ba, type: 2}
+    - {fileID: 11400000, guid: 2dbe6bf71a524bd45b4352c17d20f6cb, type: 2}
+    - {fileID: 11400000, guid: d3cb52bd184922046ba8b1b3caf2dee8, type: 2}
+    - {fileID: 11400000, guid: ffe227ca379edec41aa6c80be1175c34, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -34,15 +38,59 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
       Data: 0
+    - Name: $v
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 1
+    - Name: $v
+      Entry: 3
+      Data: 34
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 2
+    - Name: $v
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 10
+      Data: 3
+    - Name: $v
+      Entry: 3
+      Data: 50
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
-  _lootDrops:
-  - {fileID: 11400000, guid: ffe227ca379edec41aa6c80be1175c34, type: 2}
-  - {fileID: 11400000, guid: b589f80cfa72ef84fbf1396f02caa3ba, type: 2}
-  - {fileID: 11400000, guid: 2dbe6bf71a524bd45b4352c17d20f6cb, type: 2}
-  - {fileID: 11400000, guid: d3cb52bd184922046ba8b1b3caf2dee8, type: 2}
+  _lootDrops: []

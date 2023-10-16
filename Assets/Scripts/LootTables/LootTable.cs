@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "New LootTable", menuName = "Items/LootTable")]
-public class LootTable : ScriptableObject
+public class LootTable : SerializedScriptableObject
 {
-    public List<BaseItem> _lootDrops;
+    [DictionaryDrawerSettings(DisplayMode = DictionaryDisplayOptions.OneLine, KeyLabel = "Item",
+        ValueLabel = "Roll Weight")]
+    public Dictionary<BaseItem, int> _lootTable = new Dictionary<BaseItem, int>();
 }

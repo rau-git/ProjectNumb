@@ -7,7 +7,6 @@ public class LootGeneration : MonoBehaviour
     private Inventory _inventory;
     [SerializeField] private LootTable _lootTable;
     private int _maxValue;
-    [SerializeField] private int TEST_AMOUNT;
 
     private void Start()
     {
@@ -18,10 +17,10 @@ public class LootGeneration : MonoBehaviour
     private void GetMaxValue()
     {
         _maxValue = 0;
-        
-        foreach (var loot in _lootTable._lootDrops)
+
+        foreach (var lootItem in _lootTable._lootTable)
         {
-            _maxValue += loot._value;
+            _maxValue += lootItem.Value;
         }
     }
 
@@ -32,62 +31,29 @@ public class LootGeneration : MonoBehaviour
         return random;
     }
 
-    [Button("Generate Random Loot")]
+    [Button("Re-Roll Loot")]
     private void GenerateLoot()
     {
         _inventory._inventory.Clear();
         GetMaxValue();
-        
-        foreach (var loot in _lootTable._lootDrops)
+
+        foreach (var lootItem in _lootTable._lootTable)
         {
             var randomInt = GenerateRandom();
 
-            if (randomInt < loot._value)
+            if (randomInt < lootItem.Value)
             {
-                _inventory.AddItem(loot);
-                loot._amountDropped += 1;
+                _inventory.AddItem(lootItem.Key);
+                LogDetails(lootItem.Value, lootItem.Key._itemName);
             }
         }
     }
-    
-    [Button("Test Loot")]
-    private void TestLootGeneration()
+
+    private void LogDetails(int inputProbability, string inputName)
     {
-        foreach (var item in _lootTable._lootDrops)
-        {
-            item._amountDropped = 0;
-        }
-        
-        for (int i = 0; i < TEST_AMOUNT; i++)
-        {
-            GenerateLoot();
-        }
-        
-        DisplayDebugLog();
+        var dropChance = (float)inputProbability / _maxValue;
+        dropChance *= 100;
+        Debug.Log($"{inputName} dropped with a chance of {dropChance:F2}% \n");
     }
 
-    private void OutputToTXT()
-    {
-        string path = Application.dataPath + "/LootDropLog.txt";
-
-        File.WriteAllText(path, "");
-        
-        foreach (var item in _lootTable._lootDrops)
-        {
-            string content = $"!{item._amountDropped},";
-            File.AppendAllText(path, content);
-        }
-        File.AppendAllText(path, "\n");
-    }
-
-    private void DisplayDebugLog()
-    {
-        Debug.Log($"In {TEST_AMOUNT} runs these were the drops of each item:\n");
-
-        foreach (var item in _lootTable._lootDrops)
-        {
-            double percentageDrop = (float)item._amountDropped / (float)TEST_AMOUNT * 100;
-            Debug.Log($"{item._itemName} dropped {item._amountDropped} times which equates to a {percentageDrop}% drop chance.\n");
-        }
-    }
 }
