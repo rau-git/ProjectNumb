@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 426205250723191525}
   - component: {fileID: 4496900220803448617}
   - component: {fileID: 4496900220803448616}
+  - component: {fileID: 2880547412489259554}
   m_Layer: 0
   m_Name: Resource_Stone
   m_TagString: Untagged
@@ -86,6 +87,32 @@ MonoBehaviour:
   _inventory:
   - {fileID: 11400000, guid: 594d86e8ba1b3884ead2c0989da78fe2, type: 2}
   _inventoryMaxSlots: 30
+--- !u!114 &2880547412489259554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4496900220803448618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  _networkBehaviours: []
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  _isNetworked: 1
+  _isGlobal: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: -1
+  _scenePathHash: 0
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 8524244803546021874
+  _sceneNetworkObjects: []
 --- !u!1001 &4282819941038858740
 PrefabInstance:
   m_ObjectHideFlags: 0

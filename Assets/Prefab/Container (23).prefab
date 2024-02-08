@@ -61,6 +61,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351f540555f15714b9d66d88ca4583d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   _lootTable: {fileID: 11400000, guid: 14d6be086fc26314399397d916258896, type: 2}
 --- !u!65 &239336259467811005
 BoxCollider:

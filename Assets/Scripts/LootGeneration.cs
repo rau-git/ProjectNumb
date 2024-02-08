@@ -1,13 +1,15 @@
 using System.IO;
+using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class LootGeneration : MonoBehaviour
+public class LootGeneration : NetworkBehaviour
 {
     private Inventory _inventory;
     [SerializeField] private LootTable _lootTable;
     private int _maxValue;
 
+    [Server]
     private void Start()
     {
         _inventory = GetComponent<Inventory>();
@@ -31,7 +33,7 @@ public class LootGeneration : MonoBehaviour
         return random;
     }
 
-    [Button("Re-Roll Loot")]
+    [Button("Re-Roll Loot"), Server]
     private void GenerateLoot()
     {
         _inventory._inventory.Clear();
@@ -49,6 +51,7 @@ public class LootGeneration : MonoBehaviour
         }
     }
 
+    [Server]
     private void LogDetails(int inputProbability, string inputName)
     {
         var dropChance = (float)inputProbability / _maxValue;

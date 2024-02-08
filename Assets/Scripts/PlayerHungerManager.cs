@@ -40,60 +40,55 @@ public class PlayerHungerManager : NetworkBehaviour
         EnableThirst();
     }
 
-    private void Update()
-    {
-        //RPCInformServer(base.OwnerId.ToString(), _hunger.ToString(), _thirst.ToString());
-    }
-
-    [ServerRpc]
-    private void RPCInformServer(string sender, string messageHunger, string messageThirst)
-    {
-        //Debug.Log($"{sender}: my stats are food: {messageHunger} and thirst: {messageThirst}");
-    }
-
+    [Server]
     private void EnableHunger()
     {
         InvokeRepeating(nameof(CauseHunger), 0, _decayTimeHunger);
     }
 
+    [Server]
     private void EnableThirst()
     {
         InvokeRepeating(nameof(CauseThirst), 0, _decayTimeThirst);
     }
     
+    [Server]
     private void DisableThirst()
     {
         CancelInvoke(nameof(CauseThirst));
     }
 
+    [Server]
     private void DisableHunger()
     {
         CancelInvoke(nameof(CauseHunger));
     }
 
+    [Server]
     private void CauseHunger()
     {
         if (!IsOwner || !IsServer) return; 
-        RPCUpdateHunger(base.Owner);
+        RpcUpdateHunger(base.Owner);
     }
-
+    
+    [Server]
     private void CauseThirst()
     {
         if (!IsOwner || !IsServer) return; 
-        RPCUpdateThirst(base.Owner);
+        RpcUpdateThirst(base.Owner);
     }
 
-    [ServerRpc]
-    private void RPCUpdateThirst(NetworkConnection connection)
-    {
-        _thirst -= _thirstDrainRate;
-        _hudManager.SetHUDThirst(connection, _maxThirst, _thirst);
-    }
-
-    [ServerRpc]
-    private void RPCUpdateHunger(NetworkConnection connection)
+    [TargetRpc]
+    private void RpcUpdateHunger(NetworkConnection connection)
     {
         _hunger -= _hungerDrainRate;
         _hudManager.SetHUDHunger(connection, _maxHunger, _hunger);
+    }
+
+    [TargetRpc]
+    private void RpcUpdateThirst(NetworkConnection connection)
+    {
+        _thirst -= _thirstDrainRate;
+        _hudManager.SetHUDThirst(connection, _maxThirst, _thirst);
     }
 }

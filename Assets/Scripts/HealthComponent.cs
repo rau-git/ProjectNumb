@@ -17,12 +17,6 @@ public class HealthComponent : NetworkBehaviour, IDamageable
         _hudManager = GetComponentInParent<HUDManager>();
     }
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        OnDamage(0, gameObject);
-    }
-
     private void Start()
     {
         _currentHealth = _maxHealth;

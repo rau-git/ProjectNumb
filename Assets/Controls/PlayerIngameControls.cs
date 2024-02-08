@@ -89,6 +89,24 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuildMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""7b770612-1ca1-42f6-a7c7-4c6f7392c4ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuildObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""90a3386d-94e4-40e2-8860-9de16b939e9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +230,28 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                     ""action"": ""PrimaryFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""924e4460-fa55-4b8d-b714-139ad4297fab"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuildMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c61be646-8723-4026-8617-b254a7e861c4"",
+                    ""path"": ""<Keyboard>/numpadPeriod"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuildObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +267,8 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         m_PlayerControls_Crouch = m_PlayerControls.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerControls_UnlockMouse = m_PlayerControls.FindAction("UnlockMouse", throwIfNotFound: true);
         m_PlayerControls_PrimaryFire = m_PlayerControls.FindAction("PrimaryFire", throwIfNotFound: true);
+        m_PlayerControls_BuildMenu = m_PlayerControls.FindAction("BuildMenu", throwIfNotFound: true);
+        m_PlayerControls_BuildObject = m_PlayerControls.FindAction("BuildObject", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,6 +335,8 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
     private readonly InputAction m_PlayerControls_Crouch;
     private readonly InputAction m_PlayerControls_UnlockMouse;
     private readonly InputAction m_PlayerControls_PrimaryFire;
+    private readonly InputAction m_PlayerControls_BuildMenu;
+    private readonly InputAction m_PlayerControls_BuildObject;
     public struct PlayerControlsActions
     {
         private @PlayerIngameControls m_Wrapper;
@@ -304,6 +348,8 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         public InputAction @Crouch => m_Wrapper.m_PlayerControls_Crouch;
         public InputAction @UnlockMouse => m_Wrapper.m_PlayerControls_UnlockMouse;
         public InputAction @PrimaryFire => m_Wrapper.m_PlayerControls_PrimaryFire;
+        public InputAction @BuildMenu => m_Wrapper.m_PlayerControls_BuildMenu;
+        public InputAction @BuildObject => m_Wrapper.m_PlayerControls_BuildObject;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +380,12 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @PrimaryFire.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryFire;
                 @PrimaryFire.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryFire;
                 @PrimaryFire.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryFire;
+                @BuildMenu.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildMenu;
+                @BuildMenu.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildMenu;
+                @BuildMenu.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildMenu;
+                @BuildObject.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildObject;
+                @BuildObject.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildObject;
+                @BuildObject.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildObject;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -359,6 +411,12 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @PrimaryFire.started += instance.OnPrimaryFire;
                 @PrimaryFire.performed += instance.OnPrimaryFire;
                 @PrimaryFire.canceled += instance.OnPrimaryFire;
+                @BuildMenu.started += instance.OnBuildMenu;
+                @BuildMenu.performed += instance.OnBuildMenu;
+                @BuildMenu.canceled += instance.OnBuildMenu;
+                @BuildObject.started += instance.OnBuildObject;
+                @BuildObject.performed += instance.OnBuildObject;
+                @BuildObject.canceled += instance.OnBuildObject;
             }
         }
     }
@@ -372,5 +430,7 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         void OnCrouch(InputAction.CallbackContext context);
         void OnUnlockMouse(InputAction.CallbackContext context);
         void OnPrimaryFire(InputAction.CallbackContext context);
+        void OnBuildMenu(InputAction.CallbackContext context);
+        void OnBuildObject(InputAction.CallbackContext context);
     }
 }
