@@ -8,7 +8,6 @@ public class Inventory : MonoBehaviour
 
     private const int INVENTORY_ITEM_NOT_FOUND = -1;
     
-
     public bool AddItem(BaseItem item)
     {
         if (_inventory.Count >= _inventoryMaxSlots)

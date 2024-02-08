@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   _itemName: Stone
-  _itemDescription: A chunk of rock.
-  _itemIcon: {fileID: 0}
   _isStackable: 1
   _quantity: 0
-  _value: 0
-  _amountDropped: 0
+  _uiImage: {fileID: 1826205408, guid: 9055861a34042754ea52ff48e58dc08e, type: 3}

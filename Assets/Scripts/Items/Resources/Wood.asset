@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   _itemName: Wood
-  _itemDescription: A piece of wood
-  _itemIcon: {fileID: 0}
   _isStackable: 1
   _quantity: 0
-  _value: 0
-  _amountDropped: 0
+  _uiImage: {fileID: 1563090837, guid: 9055861a34042754ea52ff48e58dc08e, type: 3}

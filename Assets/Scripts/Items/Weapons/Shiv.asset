@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: Shiv
   m_EditorClassIdentifier: 
   _itemName: Shiv
-  _itemDescription: A small crude knife
-  _itemIcon: {fileID: 0}
   _isStackable: 1
   _quantity: 0
-  _value: 35
-  _amountDropped: 0
   _durability: 80
   _damage: 2
+  _uiImage: {fileID: -456864970, guid: 9055861a34042754ea52ff48e58dc08e, type: 3}

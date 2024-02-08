@@ -11,7 +11,7 @@ public class HUDManager : NetworkBehaviour
     [SerializeField] private Image _hungerSlider;
     [SerializeField] private Image _thirstSlider;
 
-    [SerializeField] private List<TextMeshProUGUI> _inventoryTextList;
+    [SerializeField] private List<Image> _inventorySprites;
     [SerializeField] private Inventory _playerInventory;
 
     private void Start()
@@ -28,7 +28,7 @@ public class HUDManager : NetworkBehaviour
     {
         for (var i = 0; i < _playerInventory._inventory.Count; i++)
         {
-            _inventoryTextList[i].text = _playerInventory._inventory[i]._itemName;
+            _inventorySprites[i].sprite = _playerInventory._inventory[i]._uiImage;
         }
     }
 

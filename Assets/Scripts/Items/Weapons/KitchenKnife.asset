@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: KitchenKnife
   m_EditorClassIdentifier: 
   _itemName: Kitchen Knife
-  _itemDescription: 
-  _itemIcon: {fileID: 0}
   _isStackable: 0
   _quantity: 0
-  _value: 50
-  _amountDropped: 0
   _durability: 0
   _damage: 0
+  _uiImage: {fileID: -106579600, guid: 9055861a34042754ea52ff48e58dc08e, type: 3}
