@@ -17,16 +17,19 @@ public class HealthComponent : NetworkBehaviour, IDamageable
         _hudManager = GetComponentInParent<HUDManager>();
     }
 
+    [Server]
     private void Start()
     {
         _currentHealth = _maxHealth;
     }
 
+    [Server]
     public void OnHeal(float healAmount)
     {
         _currentHealth += healAmount;
     }
 
+    [Server]
     public void OnDamage(float damageAmount, GameObject attackerGO)
     {
         if (_currentHealth - damageAmount <= 0f)

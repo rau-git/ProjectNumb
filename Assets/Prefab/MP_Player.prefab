@@ -2041,6 +2041,7 @@ GameObject:
   - component: {fileID: -5327667552774993636}
   - component: {fileID: 4366171635997613520}
   - component: {fileID: 8889247415369159006}
+  - component: {fileID: 3479541532776881425}
   m_Layer: 0
   m_Name: MP_Player
   m_TagString: Untagged
@@ -2298,6 +2299,22 @@ MonoBehaviour:
   selectedGhostPrefab: {fileID: 3721834675578112177, guid: 084e8c9a16fa69f49b791ac2cdbaf8e4,
     type: 3}
   buildLocation: {fileID: 1861792256941805220}
+--- !u!114 &3479541532776881425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221603456417554208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626af589bafe9ce4589fb7ec53fc6fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 9163644741400046225}
+  _networkObjectCache: {fileID: 0}
+  step: 0.005
 --- !u!1 &8268139294705301288
 GameObject:
   m_ObjectHideFlags: 0

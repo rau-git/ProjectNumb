@@ -13,6 +13,7 @@ public class PlayerBuild : NetworkBehaviour
     private GameObject ghostObject;
     private PlayerIngameControls playerControls;
     private bool buildMode;
+    private Vector3 ghostScale = new Vector3(1.0f, 1.0f, 1.0f);
 
     private void Start()
     {
@@ -49,7 +50,7 @@ public class PlayerBuild : NetworkBehaviour
     {
         if (!buildMode) return;
         
-        if (!playerControls.PlayerControls.BuildObject.WasPressedThisFrame()) return;
+        if (!playerControls.PlayerControls.PrimaryFire.WasPressedThisFrame()) return;
 
         var builtObject = Instantiate(selectedBuildingPrefab, ghostObject.transform.position, ghostObject.transform.rotation);
         PlaceBuilding(builtObject);
@@ -60,6 +61,7 @@ public class PlayerBuild : NetworkBehaviour
         ghostObject.transform.parent = transformToCopy;
         ghostObject.transform.position = transformToCopy.transform.position;
         ghostObject.transform.rotation = transformToCopy.transform.rotation;
+        ghostObject.transform.localScale = ghostScale;
     }
 
     [Server]

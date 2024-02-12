@@ -32,18 +32,17 @@ public class BuildLocationController : NetworkBehaviour
         gameObject.transform.position = hit.point;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("FoundationSnapPoint"))
+        if (other.gameObject.CompareTag("FoundationSnapPoint") || other.gameObject.CompareTag("WallSnapPoint"))
         {
-            Debug.Log($"collision successful with {other.gameObject.name}");
             playerBuild.SetGhostTransform(other.transform);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("FoundationSnapPoint"))
+        if (other.gameObject.CompareTag("FoundationSnapPoint") || other.gameObject.CompareTag("WallSnapPoint"))
         {
             playerBuild.SetGhostTransform(transform);
         }
