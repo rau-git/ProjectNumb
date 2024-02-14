@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Items/Weapon")]
 public class BaseWeaponItem : BaseItem

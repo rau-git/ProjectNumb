@@ -100,9 +100,36 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""BuildObject"",
+                    ""name"": ""Foundation"",
                     ""type"": ""Button"",
                     ""id"": ""90a3386d-94e4-40e2-8860-9de16b939e9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Wall"",
+                    ""type"": ""Button"",
+                    ""id"": ""f52f3dfe-b9f8-475a-b94c-9143f2ac76c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Door"",
+                    ""type"": ""Button"",
+                    ""id"": ""df91bdb8-bd47-4a66-9654-a586f6eebd27"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Window"",
+                    ""type"": ""Button"",
+                    ""id"": ""77307ce0-0316-4f16-b37f-78565e578885"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -245,11 +272,44 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 {
                     ""name"": """",
                     ""id"": ""c61be646-8723-4026-8617-b254a7e861c4"",
-                    ""path"": ""<Keyboard>/numpadPeriod"",
+                    ""path"": ""<Keyboard>/numpad1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""BuildObject"",
+                    ""action"": ""Foundation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55f49235-15c6-4639-a881-6fc630ded79b"",
+                    ""path"": ""<Keyboard>/numpad2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Wall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b239c56f-4131-4988-9fd8-9f2b6ed7ba61"",
+                    ""path"": ""<Keyboard>/numpad3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Door"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59e178d6-ccae-4af8-9d00-3009778ae861"",
+                    ""path"": ""<Keyboard>/numpad0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Window"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -268,7 +328,10 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         m_PlayerControls_UnlockMouse = m_PlayerControls.FindAction("UnlockMouse", throwIfNotFound: true);
         m_PlayerControls_PrimaryFire = m_PlayerControls.FindAction("PrimaryFire", throwIfNotFound: true);
         m_PlayerControls_BuildMenu = m_PlayerControls.FindAction("BuildMenu", throwIfNotFound: true);
-        m_PlayerControls_BuildObject = m_PlayerControls.FindAction("BuildObject", throwIfNotFound: true);
+        m_PlayerControls_Foundation = m_PlayerControls.FindAction("Foundation", throwIfNotFound: true);
+        m_PlayerControls_Wall = m_PlayerControls.FindAction("Wall", throwIfNotFound: true);
+        m_PlayerControls_Door = m_PlayerControls.FindAction("Door", throwIfNotFound: true);
+        m_PlayerControls_Window = m_PlayerControls.FindAction("Window", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -336,7 +399,10 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
     private readonly InputAction m_PlayerControls_UnlockMouse;
     private readonly InputAction m_PlayerControls_PrimaryFire;
     private readonly InputAction m_PlayerControls_BuildMenu;
-    private readonly InputAction m_PlayerControls_BuildObject;
+    private readonly InputAction m_PlayerControls_Foundation;
+    private readonly InputAction m_PlayerControls_Wall;
+    private readonly InputAction m_PlayerControls_Door;
+    private readonly InputAction m_PlayerControls_Window;
     public struct PlayerControlsActions
     {
         private @PlayerIngameControls m_Wrapper;
@@ -349,7 +415,10 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         public InputAction @UnlockMouse => m_Wrapper.m_PlayerControls_UnlockMouse;
         public InputAction @PrimaryFire => m_Wrapper.m_PlayerControls_PrimaryFire;
         public InputAction @BuildMenu => m_Wrapper.m_PlayerControls_BuildMenu;
-        public InputAction @BuildObject => m_Wrapper.m_PlayerControls_BuildObject;
+        public InputAction @Foundation => m_Wrapper.m_PlayerControls_Foundation;
+        public InputAction @Wall => m_Wrapper.m_PlayerControls_Wall;
+        public InputAction @Door => m_Wrapper.m_PlayerControls_Door;
+        public InputAction @Window => m_Wrapper.m_PlayerControls_Window;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -383,9 +452,18 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @BuildMenu.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildMenu;
                 @BuildMenu.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildMenu;
                 @BuildMenu.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildMenu;
-                @BuildObject.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildObject;
-                @BuildObject.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildObject;
-                @BuildObject.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnBuildObject;
+                @Foundation.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnFoundation;
+                @Foundation.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnFoundation;
+                @Foundation.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnFoundation;
+                @Wall.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnWall;
+                @Wall.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnWall;
+                @Wall.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnWall;
+                @Door.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDoor;
+                @Door.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDoor;
+                @Door.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDoor;
+                @Window.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnWindow;
+                @Window.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnWindow;
+                @Window.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnWindow;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -414,9 +492,18 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
                 @BuildMenu.started += instance.OnBuildMenu;
                 @BuildMenu.performed += instance.OnBuildMenu;
                 @BuildMenu.canceled += instance.OnBuildMenu;
-                @BuildObject.started += instance.OnBuildObject;
-                @BuildObject.performed += instance.OnBuildObject;
-                @BuildObject.canceled += instance.OnBuildObject;
+                @Foundation.started += instance.OnFoundation;
+                @Foundation.performed += instance.OnFoundation;
+                @Foundation.canceled += instance.OnFoundation;
+                @Wall.started += instance.OnWall;
+                @Wall.performed += instance.OnWall;
+                @Wall.canceled += instance.OnWall;
+                @Door.started += instance.OnDoor;
+                @Door.performed += instance.OnDoor;
+                @Door.canceled += instance.OnDoor;
+                @Window.started += instance.OnWindow;
+                @Window.performed += instance.OnWindow;
+                @Window.canceled += instance.OnWindow;
             }
         }
     }
@@ -431,6 +518,9 @@ public partial class @PlayerIngameControls : IInputActionCollection2, IDisposabl
         void OnUnlockMouse(InputAction.CallbackContext context);
         void OnPrimaryFire(InputAction.CallbackContext context);
         void OnBuildMenu(InputAction.CallbackContext context);
-        void OnBuildObject(InputAction.CallbackContext context);
+        void OnFoundation(InputAction.CallbackContext context);
+        void OnWall(InputAction.CallbackContext context);
+        void OnDoor(InputAction.CallbackContext context);
+        void OnWindow(InputAction.CallbackContext context);
     }
 }

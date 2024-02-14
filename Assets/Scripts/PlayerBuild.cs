@@ -1,29 +1,53 @@
-using System;
 using FishNet;
 using FishNet.Object;
-using FishNet.Utility.Extension;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class PlayerBuild : NetworkBehaviour
 {
-    [SerializeField] private GameObject selectedBuildingPrefab;
-    [SerializeField] private GameObject selectedGhostPrefab;
-    [SerializeField] private GameObject buildLocation;
+    [HideInInspector] public string canSnapTo;
     private GameObject ghostObject;
     private PlayerIngameControls playerControls;
     private bool buildMode;
     private Vector3 ghostScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+    [Header("Selected Building")]
+    [SerializeField] private GameObject selectedBuildingPrefab;
+    [SerializeField] private GameObject selectedGhostPrefab;
+    [SerializeField] private GameObject buildLocation;
+    
+    [Header("Building Objects")] 
+    [SerializeField] private GameObject foundationPrefab;
+    [SerializeField] private GameObject foundationGhostPrefab;
+    [SerializeField] private GameObject wallPrefab;
+    [SerializeField] private GameObject wallGhostPrefab;
+    [SerializeField] private GameObject doorPrefab;
+    [SerializeField] private GameObject doorGhostPrefab;
+    [SerializeField] private GameObject windowPrefab;
+    [SerializeField] private GameObject windowGhostPrefab;
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        
+        if (!IsOwner)
+        {
+            Destroy(this);
+            Destroy(buildLocation.gameObject);
+        }
+    }
 
     private void Start()
     {
         playerControls = new PlayerIngameControls();
         playerControls.Enable();
         buildMode = false;
+        buildLocation.gameObject.SetActive(false);
+        canSnapTo = selectedBuildingPrefab.GetComponent<SnapCompatibility>().snapTo;
     }
 
     private void Update()
     {
+        SwitchBuildObject();
         BuildMode();
         
         if (playerControls.PlayerControls.BuildMenu.WasPressedThisFrame())
@@ -32,9 +56,46 @@ public class PlayerBuild : NetworkBehaviour
         }
     }
 
+    private void SwitchBuildObject()
+    {
+        if (playerControls.PlayerControls.Foundation.WasPressedThisFrame())
+        {
+            selectedBuildingPrefab = foundationPrefab;
+            selectedGhostPrefab = foundationGhostPrefab;
+            canSnapTo = selectedBuildingPrefab.GetComponent<SnapCompatibility>().snapTo;
+            ToggleBuilding();
+            ToggleBuilding();
+        }
+        if (playerControls.PlayerControls.Wall.WasPressedThisFrame())
+        {
+            selectedBuildingPrefab = wallPrefab;
+            selectedGhostPrefab = wallGhostPrefab;
+            canSnapTo = selectedBuildingPrefab.GetComponent<SnapCompatibility>().snapTo;
+            ToggleBuilding();
+            ToggleBuilding();
+        }
+        if (playerControls.PlayerControls.Door.WasPressedThisFrame())
+        {
+            selectedBuildingPrefab = doorPrefab;
+            selectedGhostPrefab = doorGhostPrefab;
+            canSnapTo = selectedBuildingPrefab.GetComponent<SnapCompatibility>().snapTo;
+            ToggleBuilding();
+            ToggleBuilding();
+        }
+        if (playerControls.PlayerControls.Window.WasPressedThisFrame())
+        {
+            selectedBuildingPrefab = windowPrefab;
+            selectedGhostPrefab = windowGhostPrefab;
+            canSnapTo = selectedBuildingPrefab.GetComponent<SnapCompatibility>().snapTo;
+            ToggleBuilding();
+            ToggleBuilding();
+        }
+    }
+
     private void ToggleBuilding()
     {
         buildMode = !buildMode;
+        buildLocation.gameObject.SetActive(buildMode);
 
         if (buildMode)
         {
@@ -59,8 +120,8 @@ public class PlayerBuild : NetworkBehaviour
     public void SetGhostTransform(Transform transformToCopy)
     {
         ghostObject.transform.parent = transformToCopy;
-        ghostObject.transform.position = transformToCopy.transform.position;
-        ghostObject.transform.rotation = transformToCopy.transform.rotation;
+        ghostObject.transform.position = transformToCopy.position;
+        ghostObject.transform.rotation = transformToCopy.rotation;
         ghostObject.transform.localScale = ghostScale;
     }
 

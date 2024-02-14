@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using FishNet.Object;
 using UnityEngine;
 
 public class GrowSpawn : NetworkBehaviour
 {
     [SerializeField] private float step;
-    private Vector3 initialScale = new Vector3(0.5f, 0.5f, 0.5f);
+    private Vector3 initialScale = new Vector3(0.1f, 0.1f, 0.1f);
     private Vector3 finalScale = new Vector3(1.0f, 1.0f, 1.0f);
     
     [Server]

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3751478407744841126}
   - component: {fileID: 7463996121922406994}
   - component: {fileID: 1796871274849872318}
+  - component: {fileID: 8531662273438909867}
   m_Layer: 0
   m_Name: Foundation
   m_TagString: BuildingFoundation
@@ -112,6 +113,19 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4002800629493856505}
   _networkObjectCache: {fileID: 4002800629493856505}
   step: 0.2
+--- !u!114 &8531662273438909867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162326670358968732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cad4a831efbcf24c901e22a441d8619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapTo: FoundationSnapPoint
 --- !u!1 &939272460528227721
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2741933093071601386}
   - component: {fileID: 6575881033559930382}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: WallSnapPoint
   m_Icon: {fileID: 0}
@@ -356,7 +370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 476751857743452029}
   - component: {fileID: 4238061750204380131}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: FoundationSnapPoint
   m_Icon: {fileID: 0}
@@ -401,7 +415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9101204226308406520}
   - component: {fileID: 934014538394676083}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: FoundationSnapPoint
   m_Icon: {fileID: 0}
@@ -481,7 +495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1307993580507012002}
   - component: {fileID: 7903164290325082095}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: WallSnapPoint
   m_Icon: {fileID: 0}
@@ -526,7 +540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6430871817487489896}
   - component: {fileID: 8727836824850782297}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: WallSnapPoint
   m_Icon: {fileID: 0}
@@ -571,7 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6031288724465448536}
   - component: {fileID: 5097269464582697870}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: FoundationSnapPoint
   m_Icon: {fileID: 0}
@@ -713,7 +727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 963681355708765689}
   - component: {fileID: 2971811160641675002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: WallSnapPoint
   m_Icon: {fileID: 0}
@@ -758,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801682774563339884}
   - component: {fileID: 8348829413057852622}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnapPoint
   m_TagString: FoundationSnapPoint
   m_Icon: {fileID: 0}

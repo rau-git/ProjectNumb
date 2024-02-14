@@ -322,6 +322,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 9163644741400046225}
   _networkObjectCache: {fileID: 9163644741400046225}
   maxDistance: 10
+  snapRadius: 2.5
   raycastFireOrigin: {fileID: 6064509943897967466}
 --- !u!1 &1929538140850450038
 GameObject:
@@ -2041,7 +2042,6 @@ GameObject:
   - component: {fileID: -5327667552774993636}
   - component: {fileID: 4366171635997613520}
   - component: {fileID: 8889247415369159006}
-  - component: {fileID: 3479541532776881425}
   m_Layer: 0
   m_Name: MP_Player
   m_TagString: Untagged
@@ -2127,7 +2127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventory: []
-  _inventoryMaxSlots: 8
+  _inventoryMaxSlots: 5
 --- !u!114 &5937363693067993779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2299,22 +2299,22 @@ MonoBehaviour:
   selectedGhostPrefab: {fileID: 3721834675578112177, guid: 084e8c9a16fa69f49b791ac2cdbaf8e4,
     type: 3}
   buildLocation: {fileID: 1861792256941805220}
---- !u!114 &3479541532776881425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221603456417554208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 626af589bafe9ce4589fb7ec53fc6fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 9163644741400046225}
-  _networkObjectCache: {fileID: 0}
-  step: 0.005
+  foundationPrefab: {fileID: 162326670358968732, guid: 9feb094de3854d940a2daa578debe06e,
+    type: 3}
+  foundationGhostPrefab: {fileID: 3721834675578112177, guid: 084e8c9a16fa69f49b791ac2cdbaf8e4,
+    type: 3}
+  wallPrefab: {fileID: 162326670358968732, guid: 32e289dbeeab1be409c505cb43fe1273,
+    type: 3}
+  wallGhostPrefab: {fileID: 162326670358968732, guid: d6f2313aa4ea71949865c65103eb324c,
+    type: 3}
+  doorPrefab: {fileID: 162326670358968732, guid: 21b39a3bfdd07884f82bdbcc57805eef,
+    type: 3}
+  doorGhostPrefab: {fileID: 162326670358968732, guid: 7aa03b9eea8f002409ad2ddf56e34aa4,
+    type: 3}
+  windowPrefab: {fileID: 162326670358968732, guid: ac2e8e78044e6a943b9d8e5555b961e5,
+    type: 3}
+  windowGhostPrefab: {fileID: 162326670358968732, guid: 60656f0c985d7894ebcde7381f268aba,
+    type: 3}
 --- !u!1 &8268139294705301288
 GameObject:
   m_ObjectHideFlags: 0

@@ -78,9 +78,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "BuildObject",
+                    "name": "Foundation",
                     "type": "Button",
                     "id": "90a3386d-94e4-40e2-8860-9de16b939e9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Wall",
+                    "type": "Button",
+                    "id": "f52f3dfe-b9f8-475a-b94c-9143f2ac76c9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Door",
+                    "type": "Button",
+                    "id": "df91bdb8-bd47-4a66-9654-a586f6eebd27",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Window",
+                    "type": "Button",
+                    "id": "77307ce0-0316-4f16-b37f-78565e578885",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -223,11 +250,44 @@
                 {
                     "name": "",
                     "id": "c61be646-8723-4026-8617-b254a7e861c4",
-                    "path": "<Keyboard>/numpadPeriod",
+                    "path": "<Keyboard>/numpad1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "BuildObject",
+                    "action": "Foundation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55f49235-15c6-4639-a881-6fc630ded79b",
+                    "path": "<Keyboard>/numpad2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wall",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b239c56f-4131-4988-9fd8-9f2b6ed7ba61",
+                    "path": "<Keyboard>/numpad3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Door",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59e178d6-ccae-4af8-9d00-3009778ae861",
+                    "path": "<Keyboard>/numpad0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Window",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
