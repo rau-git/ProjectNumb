@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 8605048610786811206}
   - component: {fileID: 239336259467811005}
   - component: {fileID: 6248955806364672824}
+  - component: {fileID: 2578726639858865785}
   m_Layer: 0
   m_Name: Container (23)
   m_TagString: Untagged
@@ -184,8 +185,23 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 4
+  <PrefabId>k__BackingField: 10
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 8486378902136174498
   _sceneNetworkObjects: []
+--- !u!114 &2578726639858865785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605048610786811200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c07ecd4a054f74b8c11ad1bce6a2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6248955806364672824}
+  _networkObjectCache: {fileID: 0}

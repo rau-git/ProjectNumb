@@ -22,9 +22,9 @@ public class BuildLocationController : NetworkBehaviour
     private void SnapCheck()
     {
         var closestDistance = snapRadius;
-        Vector3 maxSpherePosition = raycastFireOrigin.position + raycastFireOrigin.forward * maxDistance;
+        var maxSpherePosition = raycastFireOrigin.position + raycastFireOrigin.forward * maxDistance;
         
-        if(Physics.Raycast(raycastFireOrigin.position, raycastFireOrigin.forward, out var hit, maxDistance))
+        if(Physics.Raycast(raycastFireOrigin.position, raycastFireOrigin.forward, out var hit, maxDistance, 1 << LayerMask.NameToLayer("BuildingSnap")))
         {
             maxSpherePosition = hit.point;
         }
