@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7463996121922406994}
   - component: {fileID: -9171725069229464368}
   - component: {fileID: 6920167572335720628}
+  - component: {fileID: 4183991050695925259}
   m_Layer: 0
   m_Name: Door
   m_TagString: BuildingFoundation
@@ -112,6 +113,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapTo: WallSnapPoint
+--- !u!64 &4183991050695925259
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162326670358968732}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6510817040205682837, guid: f8a8c40c38c3827428f0d23ae93856a4, type: 3}
 --- !u!1 &400747964508881115
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +260,6 @@ GameObject:
   - component: {fileID: 9166875882764894899}
   - component: {fileID: 6978111426937387428}
   - component: {fileID: 5657836670112770431}
-  - component: {fileID: 7354961919800768217}
   m_Layer: 0
   m_Name: HouseWall_08_LOD0
   m_TagString: Untagged
@@ -318,17 +332,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7354961919800768217
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6669368311999436312}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6510817040205682837, guid: f8a8c40c38c3827428f0d23ae93856a4, type: 3}

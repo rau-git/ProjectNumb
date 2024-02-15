@@ -1120,12 +1120,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
+  antialiasing: 2
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
   taaSharpenStrength: 0.5
-  TAAQuality: 1
+  TAAQuality: 2
   taaHistorySharpening: 0.35
   taaAntiFlicker: 0.5
   taaMotionVectorRejection: 0
@@ -2294,6 +2294,7 @@ MonoBehaviour:
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 9163644741400046225}
   _networkObjectCache: {fileID: 9163644741400046225}
+  canSnapTo: 
   selectedBuildingPrefab: {fileID: 162326670358968732, guid: 9feb094de3854d940a2daa578debe06e,
     type: 3}
   selectedGhostPrefab: {fileID: 3721834675578112177, guid: 084e8c9a16fa69f49b791ac2cdbaf8e4,

@@ -5,25 +5,17 @@ using UnityEngine;
 
 public class PlayerHungerManager : NetworkBehaviour
 {
-    [SerializeField]
-    private float _maxHunger;
-    [SerializeField]
-    private float _maxThirst;
+    [SerializeField] private float _maxHunger;
+    [SerializeField] private float _maxThirst;
     
-    [SyncVar, SerializeField]
-    private float _hunger;
-    [SyncVar, SerializeField]
-    private float _thirst;
+    [SyncVar, SerializeField] private float _hunger;
+    [SyncVar, SerializeField] private float _thirst;
 
-    [SerializeField] 
-    private float _decayTimeHunger;
-    [SerializeField]
-    private float _decayTimeThirst;
+    [SerializeField] private float _decayTimeHunger;
+    [SerializeField] private float _decayTimeThirst;
 
-    [SerializeField]
-    private float _hungerDrainRate;
-    [SerializeField]
-    private float _thirstDrainRate;
+    [SerializeField] private float _hungerDrainRate;
+    [SerializeField] private float _thirstDrainRate;
 
     private HUDManager _hudManager;
 

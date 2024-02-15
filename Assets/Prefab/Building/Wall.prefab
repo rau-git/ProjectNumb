@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7463996121922406994}
   - component: {fileID: -7687676081819296131}
   - component: {fileID: 615063543736382075}
+  - component: {fileID: 6857102088539622504}
   m_Layer: 0
   m_Name: Wall
   m_TagString: BuildingFoundation
@@ -112,102 +113,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapTo: WallSnapPoint
---- !u!1 &1605559909494719826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1017918078955640179}
-  - component: {fileID: 8162501017508356225}
-  - component: {fileID: 2579292171524391037}
-  - component: {fileID: 5286471504851750947}
-  m_Layer: 0
-  m_Name: HouseWall_02_LOD1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1017918078955640179
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605559909494719826}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6451401627808036669}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8162501017508356225
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605559909494719826}
-  m_Mesh: {fileID: -2865742040019752273, guid: 914e26c773673014a80d972d24d6abb9, type: 3}
---- !u!23 &2579292171524391037
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605559909494719826}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 8ac1bd3773470b84dbf2520b9b1660e2, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5286471504851750947
+--- !u!65 &6857102088539622504
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605559909494719826}
+  m_GameObject: {fileID: 162326670358968732}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 3, z: 0.3}
+  m_Size: {x: 2.5, y: 3, z: 0.2999997}
   m_Center: {x: 0, y: 1.5, z: 0.0000009834766}
 --- !u!1 &2498528360402597617
 GameObject:
@@ -263,7 +180,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6451401627808036669}
-  - component: {fileID: 2296242280426717260}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -284,33 +200,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3373202925501926510}
-  - {fileID: 1017918078955640179}
   m_Father: {fileID: 162326670358968735}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!205 &2296242280426717260
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5966191116791295367}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 1.5, z: 0.0000009834766}
-  m_Size: 3
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.24724868
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7750507218384310915}
-  - screenRelativeHeight: 0.025907518
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 2579292171524391037}
-  m_Enabled: 1
 --- !u!1 &6184291064029279120
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +259,6 @@ GameObject:
   - component: {fileID: 3373202925501926510}
   - component: {fileID: 8373910673430271057}
   - component: {fileID: 7750507218384310915}
-  - component: {fileID: 71723838283937275}
   m_Layer: 0
   m_Name: HouseWall_02_LOD0
   m_TagString: Untagged
@@ -440,16 +331,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &71723838283937275
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8787708968051808889}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.5, y: 3, z: 0.2999997}
-  m_Center: {x: 0, y: 1.5, z: 0.0000009834766}
