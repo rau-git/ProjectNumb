@@ -1,24 +1,27 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FishNet.Transporting;
 using UnityEngine;
 
 public class HealthComponent : NetworkBehaviour, IDamageable
 {
-    private HUDManager _hudManager;
+    [SerializeField] private HUDManager _hudManager;
     
-    [SerializeField, SyncVar]
+    [SerializeField, SyncVar(Channel = Channel.Reliable, OnChange = nameof(on_health))]
     private float _currentHealth;
     
     [SerializeField, SyncVar]
     private float _maxHealth;
 
-    private void Awake()
+    public override void OnStartClient()
     {
-        _hudManager = GetComponentInParent<HUDManager>();
+        base.OnStartClient();
+        
+        SetMaxHealth();
     }
 
     [Server]
-    private void Start()
+    private void SetMaxHealth()
     {
         _currentHealth = _maxHealth;
     }
@@ -38,6 +41,10 @@ public class HealthComponent : NetworkBehaviour, IDamageable
         }
 
         _currentHealth -= damageAmount;
-        _hudManager.SetHUDHealth(NetworkObject.LocalConnection, _maxHealth, _currentHealth);
+    }
+
+    private void on_health(float previous, float next, bool asServer)
+    {
+        _hudManager.SetHUDHealth(_maxHealth, _currentHealth);
     }
 }

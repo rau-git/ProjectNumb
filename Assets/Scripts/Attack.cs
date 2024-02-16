@@ -31,9 +31,9 @@ public class Attack : NetworkBehaviour
     [ServerRpc]
     private void ShootRPC(Vector3 _originOfAttack, Vector3 _directionOfAttack)
     {
-        if (Physics.Raycast(_originOfAttack, _directionOfAttack, out var hit) &&
-            hit.transform.TryGetComponent(out IDamageable damageable))
-
+        if (Physics.Raycast(_originOfAttack, _directionOfAttack, out var hit) && hit.transform.TryGetComponent(out IDamageable damageable))
+        {
             damageable.OnDamage(_damage, gameObject);
+        }
     }
 }

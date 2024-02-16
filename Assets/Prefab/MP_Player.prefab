@@ -2143,6 +2143,7 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 9163644741400046225}
   _networkObjectCache: {fileID: 9163644741400046225}
+  _hudManager: {fileID: 5066423174268871154}
   _currentHealth: 75
   _maxHealth: 100
 --- !u!114 &5918063339667025052
@@ -2168,6 +2169,7 @@ MonoBehaviour:
   _decayTimeThirst: 3
   _hungerDrainRate: 1
   _thirstDrainRate: 1
+  _hudManager: {fileID: 5066423174268871154}
 --- !u!114 &9163644741400046225
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FishNet.Transporting;
 using UnityEngine;
 
 public class PlayerHungerManager : NetworkBehaviour
@@ -8,8 +9,8 @@ public class PlayerHungerManager : NetworkBehaviour
     [SerializeField] private float _maxHunger;
     [SerializeField] private float _maxThirst;
     
-    [SyncVar, SerializeField] private float _hunger;
-    [SyncVar, SerializeField] private float _thirst;
+    [SyncVar(Channel = Channel.Reliable, OnChange = nameof(on_hunger)), SerializeField] private float _hunger;
+    [SyncVar(Channel = Channel.Reliable, OnChange = nameof(on_thirst)), SerializeField] private float _thirst;
 
     [SerializeField] private float _decayTimeHunger;
     [SerializeField] private float _decayTimeThirst;
@@ -17,12 +18,7 @@ public class PlayerHungerManager : NetworkBehaviour
     [SerializeField] private float _hungerDrainRate;
     [SerializeField] private float _thirstDrainRate;
 
-    private HUDManager _hudManager;
-
-    private void Awake()
-    {
-        _hudManager = GetComponentInParent<HUDManager>();
-    }
+    [SerializeField] private HUDManager _hudManager;
 
     public override void OnStartClient()
     {
@@ -59,28 +55,22 @@ public class PlayerHungerManager : NetworkBehaviour
     [Server]
     private void CauseHunger()
     {
-        if (!IsOwner || !IsServer) return; 
-        RpcUpdateHunger(base.Owner);
+        _hunger -= _hungerDrainRate;
     }
     
     [Server]
     private void CauseThirst()
     {
-        if (!IsOwner || !IsServer) return; 
-        RpcUpdateThirst(base.Owner);
-    }
-
-    [TargetRpc]
-    private void RpcUpdateHunger(NetworkConnection connection)
-    {
-        _hunger -= _hungerDrainRate;
-        _hudManager.SetHUDHunger(connection, _maxHunger, _hunger);
-    }
-
-    [TargetRpc]
-    private void RpcUpdateThirst(NetworkConnection connection)
-    {
         _thirst -= _thirstDrainRate;
-        _hudManager.SetHUDThirst(connection, _maxThirst, _thirst);
+    }
+
+    private void on_hunger(float previous, float next, bool asServer)
+    {
+        _hudManager.SetHUDHunger(_maxHunger, _hunger);
+    }
+    
+    private void on_thirst(float previous, float next, bool asServer)
+    {
+        _hudManager.SetHUDThirst(_maxThirst, _thirst);
     }
 }
